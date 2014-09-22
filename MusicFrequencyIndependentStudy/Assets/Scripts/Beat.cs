@@ -7,7 +7,7 @@ public class Beat : MonoBehaviour {
 	public int band;
 	public GameObject particles;
 	private bool triggered = false;
-	private int sampleThreshold = 128;
+	private int sampleThreshold = 200;
 	// Use this for initialization
 	void Start () {
 	
@@ -21,16 +21,16 @@ public class Beat : MonoBehaviour {
 	public void CheckIfTime(int sTime) {
 
 		if (!triggered && sampleTime > (sTime - sampleThreshold) && sampleTime < (sTime + sampleThreshold)) {
-		 	StartCoroutine (Trigger());			
+		 	Trigger();			
 		}
 	}
 
-	IEnumerator Trigger() {
+	void Trigger() {
 		triggered = true;
 		GameObject p = (GameObject)Instantiate (particles, transform.position, Quaternion.identity);
 		//p.particleSystem.startSize = magnitude * .03f;
-		yield return new WaitForSeconds (1f);
-		Destroy (p);
+		//yield return new WaitForSeconds (1f);
+		//Destroy (p);
 		Destroy (gameObject);
 	}
 }
