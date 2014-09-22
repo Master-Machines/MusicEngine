@@ -11,7 +11,8 @@ public class VisualMaster : MonoBehaviour {
 	public float cellZChangeAmount;
 
 	public GameObject colorBox;
-
+	public GameObject beatCollectorObj;
+	public GameObject beat;
 	private float zPosition;
 	private float startingRowZChangeAmount;
 	// Use this for initialization
@@ -21,7 +22,7 @@ public class VisualMaster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (audio.isPlaying) beatCollectorObj.BroadcastMessage ("CheckIfTime", audio.timeSamples);
 	}
 
 	public void CreateRow(double[] values) {
@@ -47,5 +48,14 @@ public class VisualMaster : MonoBehaviour {
 
 		}
 		return (float)counter;
+	}
+
+	public void CreateBeat(int time, double magnitude, int band) {
+		GameObject beatObj = (GameObject)Instantiate (beat, new Vector3 (band * 5f, 0f, 0f), Quaternion.identity);
+		beatObj.transform.parent = beatCollectorObj.transform;
+		Beat beatScript = beatObj.GetComponent<Beat> ();
+		beatScript.sampleTime = time;
+		beatScript.band = band;
+		beatScript.magnitude = (float) magnitude;
 	}
 }

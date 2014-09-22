@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Analysis\Core.cs" />
      <Compile Include="Assets\Scripts\Analysis\FFT.cs" />
+     <Compile Include="Assets\Scripts\Beat.cs" />
      <Compile Include="Assets\Scripts\Visuals\ColorBox.cs" />
      <Compile Include="Assets\Scripts\Visuals\VisualMaster.cs" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
