@@ -10,6 +10,7 @@ public class Core : MonoBehaviour {
 	public int sampleSizeFactorOf2;
 	public double beatThreshold;
 	public int numberOfBands;
+	public int welchSegments = 16;
 	private int sampleSizeForFFT;
 	private VisualMaster visualMaster;
 	private double[][] condensedValues;
@@ -17,6 +18,7 @@ public class Core : MonoBehaviour {
 	private float[] averages;
 	// Use this for initialization
 	void Start () {
+
 		sampleSizeForFFT = (int)Mathf.Pow (2f, (float)sampleSizeFactorOf2);
 		visualMaster = visualMasterObject.GetComponent<VisualMaster> ();
 		Camera.main.transform.position = new Vector3 (2.5f * numberOfBands, 3f * numberOfBands, 0f);
@@ -57,18 +59,54 @@ public class Core : MonoBehaviour {
 	void DoOneIteration(int numberOfSamples, int offset) {
 		float[] samples = new float[numberOfSamples];
 		audioClip.GetData (samples, offset * numberOfSamples);
-		double[] imaginary = new double[numberOfSamples];
-		double[] real = new double[numberOfSamples];
-		for (int i = 0; i < numberOfSamples; i++) {
+
+		int numSegments = welchSegments * 2 - 1;
+		int segmentLength = numberOfSamples / welchSegments;
+		int stepAmount = segmentLength / 2;
+		int counter = 0;
+		double[][] welchTotal = new double[numSegments][];
+	
+		for(int i = 0; i < numSegments; i++) {
+			welchTotal[i] = DoFFT(GrabSamples(samples, counter, segmentLength));
+			counter += stepAmount;
+		}
+		condensedValues [offset] = Condense (FindMagnitudes(WelchAverage(welchTotal)), numberOfBands, false);
+		//visualMaster.CreateRow (real);
+	}
+
+	double[] WelchAverage(double[][] values) {
+		double[] results = new double[values [0].Length];
+		for (int i = 0; i < values.Length; i++) {
+			for(int g = 0; g < values[i].Length; g++) {
+				results[i] += values[i][g];
+			}		
+		}
+
+		for (int i = 0; i < results.Length; i++) {
+			results[i] = results[i]/values.Length;		
+		}
+		return results;
+	}
+
+	float[] GrabSamples(float[] values, int startingIndex, int numSamples) {
+		float[] samples = new float[numSamples];
+		for (int i = 0; i < numSamples; i++) {
+			samples[i] = values[startingIndex + i];		
+		}
+		return samples;
+	}
+
+	double[] DoFFT(float[] values) {
+		double[] real = new double[values.Length];
+		double[] imaginary = new double[values.Length];
+		for (int i = 0; i < values.Length; i++) {
 			imaginary[i] = 0f;
-			real[i] = (double)samples[i];
+			real[i] = (double)values[i];
 		}
 		FFT2 fft = new FFT2();
-		fft.init((uint)sampleSizeFactorOf2);
+		fft.init((uint)Mathf.Log ((float)values.Length));
 		fft.run (real, imaginary, false);
-		real = FindMagnitudes (real);
-		condensedValues [offset] = Condense (real, numberOfBands, false);
-		//visualMaster.CreateRow (real);
+		return real;
 	}
 
 	double[] FindMagnitudes(double[] values) {
@@ -128,7 +166,7 @@ public class Core : MonoBehaviour {
 
 		for(int g = 0; g < averages.Length; g++) {
 			averages[g] = averages[g]/counters[g];
-			averages[g] *= 1.4f;
+			averages[g] *= 1.2f;
 		}
 	}
 }
