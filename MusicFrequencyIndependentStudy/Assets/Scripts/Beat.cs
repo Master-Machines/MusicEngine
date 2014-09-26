@@ -20,7 +20,7 @@ public class Beat : MonoBehaviour {
 
 	public void CheckIfTime(int sTime) {
 
-		if (!triggered && sampleTime > (sTime - sampleThreshold) && sampleTime < (sTime + sampleThreshold)) {
+		if (!triggered && sampleTime > (sTime - 2 * sampleThreshold) && sampleTime < (sTime + sampleThreshold)) {
 		 	Trigger();			
 		}
 	}

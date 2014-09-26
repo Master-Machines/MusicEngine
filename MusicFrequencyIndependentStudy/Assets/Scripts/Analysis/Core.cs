@@ -8,7 +8,6 @@ public class Core : MonoBehaviour {
 	public AudioClip audioClip;
 	public GameObject visualMasterObject;
 	public int sampleSizeFactorOf2;
-	public double beatThreshold;
 	public int numberOfBands;
 	public int welchSegments = 16;
 	private int sampleSizeForFFT;
@@ -16,9 +15,10 @@ public class Core : MonoBehaviour {
 	private double[][] condensedValues;
 	private double[][] deltas;
 	private float[] averages;
+	private int[] beatCount;
 	// Use this for initialization
 	void Start () {
-
+		beatCount = new int[numberOfBands];
 		sampleSizeForFFT = (int)Mathf.Pow (2f, (float)sampleSizeFactorOf2);
 		visualMaster = visualMasterObject.GetComponent<VisualMaster> ();
 		Camera.main.transform.position = new Vector3 (2.5f * numberOfBands, 3f * numberOfBands, 0f);
@@ -67,15 +67,15 @@ public class Core : MonoBehaviour {
 		double[][] welchTotal = new double[numSegments][];
 	
 		for(int i = 0; i < numSegments; i++) {
-			welchTotal[i] = DoFFT(GrabSamples(samples, counter, segmentLength));
+			welchTotal[i] = DoFFT(ApplyHamming(GrabSamples(samples, counter, segmentLength)));
 			counter += stepAmount;
 		}
-		condensedValues [offset] = Condense (FindMagnitudes(WelchAverage(welchTotal)), numberOfBands, false);
+		condensedValues [offset] = Condense (FindMagnitudes(WelchAverage(welchTotal)), numberOfBands, true);
 		//visualMaster.CreateRow (real);
 	}
 
 	double[] WelchAverage(double[][] values) {
-		double[] results = new double[values [0].Length];
+		double[] results = new double[values.Length];
 		for (int i = 0; i < values.Length; i++) {
 			for(int g = 0; g < values[i].Length; g++) {
 				results[i] += values[i][g];
@@ -110,8 +110,8 @@ public class Core : MonoBehaviour {
 	}
 
 	double[] FindMagnitudes(double[] values) {
-		for (int i = 0; i < values.Length/2; i++) {
-			values[i] = i * values[i];
+		for (int i = 0; i < values.Length; i++) {
+			values[i] = i * (double)Mathf.Abs((float)values[i]);
 		}
 		return values;
 	}
@@ -119,16 +119,23 @@ public class Core : MonoBehaviour {
 	double[] Condense(double[] values, int numBands, bool average) {
 		double[] vals = new double[numBands];
 		int[] cutoffs = new int[numBands];
+		int[] cutoffsAverage = new int[numBands];
 		int currentCutoff = 0;
 		for(int g = 0; g < numBands; g++) {
 			float f = (float)(g + 1) / (float)numBands;
-			cutoffs[g] = (int)(f * (float)values.Length);
+			cutoffs[g] = (int)(f * (float)values.Length / 2f);
 		}
-		for (int i = 0; i < values.Length; i++) {
+		for (int i = 0; i < values.Length/2; i++) {
 			if(i == cutoffs[currentCutoff]) {
 				currentCutoff ++;
 			}
 			vals[currentCutoff] += values[i];
+			cutoffsAverage[currentCutoff] += 1;
+		}
+		if (average) {
+			for(int g = 0; g < numBands; g++) {
+				vals[g] = vals[g] / cutoffsAverage[g];
+			}	
 		}
 		return vals;
 	}
@@ -136,6 +143,7 @@ public class Core : MonoBehaviour {
 	void ComputeDeltas(double[][] values) {
 		for (int i = 0; i < values.Length - 1; i++) {
 			deltas[i] = new double[values[i].Length];
+
 			for(int g = 0; g < values[i].Length; g++) {
 				deltas[i][g] = values[i + 1][g] - values[i][g];
 			}		
@@ -143,6 +151,37 @@ public class Core : MonoBehaviour {
 	}
 
 	void ComputeBeats(double[][] values) {
+		for (int i = 0; i < values.Length - 1; i++) {
+			bool isPositive = false;
+			bool beatTriggered = false;
+			double counter = 0d;
+			double negativeCounter = 0d;
+			for(int g = 0; g < values[i].Length; g++) {
+
+				if(values[i][g] >= 0 && !beatTriggered) {
+					isPositive = true;
+					counter += values[i][g];
+					if (counter > averages[g]) {
+						negativeCounter = 0;
+						beatTriggered = true;
+						visualMaster.CreateBeat(i * sampleSizeForFFT, values[i][g], g);
+						beatCount[g] ++;
+					}
+				} else if(values[i][g] < 0) {
+					isPositive = false;
+					beatTriggered = false;
+					negativeCounter -= values[i][g];
+					counter = 0;
+				}
+			}		
+		}
+
+		for (int i = 0; i < beatCount.Length; i++) {
+			Debug.Log("Beats for band " + i.ToString() + " : " + beatCount[i].ToString());		
+		}
+	}
+
+	void ComputeBeatsAverage(double[][] values) {
 		for (int i = 0; i < values.Length - 1; i++) {
 			for(int g = 0; g < values[i].Length; g++) {
 				if(values[i][g] > averages[g]) {
@@ -156,7 +195,7 @@ public class Core : MonoBehaviour {
 		int[] counters = new int[averages.Length];
 		for (int i = 0; i < values.Length - 1; i++) {
 			for(int g = 0; g < values[i].Length; g++) {
-				if(values[i][g] > 0) {
+				if(values[i][g] >= 0) {
 					averages[g] += (float)values[i][g];
 					counters[g] += 1;
 				}
@@ -165,8 +204,17 @@ public class Core : MonoBehaviour {
 		}
 
 		for(int g = 0; g < averages.Length; g++) {
+			Debug.Log("Averages for band " + g.ToString() + " : " + averages[g].ToString());
 			averages[g] = averages[g]/counters[g];
-			averages[g] *= 1.2f;
+			averages[g] *= 1.4f;
+
 		}
+	}
+
+	float[] ApplyHamming(float[] values) {
+		for (int n = 0; n < values.Length; n++) {
+			values[n] = 0.54f - (0.46f * Mathf.Cos( (2f * Mathf.PI * values[n]) / (values.Length - 1) ));	
+		}
+		return values;
 	}
 }
