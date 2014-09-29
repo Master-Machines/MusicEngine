@@ -41,7 +41,7 @@ ParticleSystem:
   randomSeed: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   moveWithTransform: 0
   InitialModule:
     enabled: 1
@@ -323,7 +323,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    cnt0: 100
+    cnt0: 80
     cnt1: 30
     cnt2: 30
     cnt3: 30
@@ -416,7 +416,7 @@ ParticleSystem:
           rgba: 4294967295
         key1:
           serializedVersion: 2
-          rgba: 1526726655
+          rgba: 1224736767
         key2:
           serializedVersion: 2
           rgba: 65363
@@ -444,7 +444,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 21781
+        atime1: 8096
         atime2: 65535
         atime3: 65535
         atime4: 0

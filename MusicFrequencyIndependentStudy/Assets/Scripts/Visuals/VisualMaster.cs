@@ -22,7 +22,7 @@ public class VisualMaster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (audio.isPlaying) beatCollectorObj.BroadcastMessage ("CheckIfTime", audio.timeSamples);
+		//if (audio.isPlaying) beatCollectorObj.BroadcastMessage ("CheckIfTime", audio.timeSamples);
 	}
 
 	public void CreateRow(double[] values) {

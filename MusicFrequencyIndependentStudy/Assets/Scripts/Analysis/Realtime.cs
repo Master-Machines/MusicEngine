@@ -19,7 +19,7 @@ public class Realtime : MonoBehaviour {
 	
 	void Update() {
 		audio.GetSpectrumData (spectrum, 0, fft);
-		//spectrum = FindMagnitudes (spectrum);
+		spectrum = FindMagnitudes (spectrum);
 	}
 
 	float[] Condense(float[] values, int numBands, bool average) {

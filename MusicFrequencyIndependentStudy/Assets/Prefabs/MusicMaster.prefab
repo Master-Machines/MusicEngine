@@ -40,11 +40,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
-  audioClip: {fileID: 8300000, guid: bb6ea69e92b149b47be77b2129ae512a, type: 3}
+  audioClip: {fileID: 8300000, guid: 24acb1a54be46c545bd65476e02ba458, type: 3}
   visualMasterObject: {fileID: 0}
   sampleSizeFactorOf2: 11
-  numberOfBands: 10
-  welchSegments: 32
+  numberOfBands: 16
+  welchSegments: 8
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
