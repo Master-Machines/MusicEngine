@@ -8,8 +8,9 @@ public class Core : MonoBehaviour {
 	public AudioClip audioClip;
 	public GameObject visualMasterObject;
 	public int sampleSizeFactorOf2;
-	public int numberOfBands;
+	private int numberOfBands = 8;
 	public int welchSegments = 16;
+	private float[] bandPercents = new float[8]{0.03f, 0.06f, 0.12f, 0.18f, 0.24f, 0.30f, 0.50f, 1f};
 	private int sampleSizeForFFT;
 	private BeatMaster beatMaster;
 	private VisualMaster visualMaster;
@@ -26,7 +27,7 @@ public class Core : MonoBehaviour {
 		beatMaster.audioFrequency = audioClip.frequency;
 		beatMaster.sampleSize = sampleSizeForFFT;
 		beatMaster.sampleRate = sampleSizeForFFT / audioClip.frequency;
-		Camera.main.transform.position = new Vector3 (2.5f * numberOfBands, 3f * numberOfBands, 0f);
+		Camera.main.transform.position = new Vector3 (2f * numberOfBands, 2.5f * numberOfBands, -2f);
 		Debug.Log (audioClip.samples);
 		Debug.Log (audioClip.channels);
 		Debug.Log (audioClip.frequency);
@@ -55,8 +56,10 @@ public class Core : MonoBehaviour {
 		}
 		ComputeDeltas(condensedValues);
 		Debug.Log("Finished gathering data");
-		ComputeAverages(deltas);
+		ComputeAverages(condensedValues);
+		ComputeAverageSecondIteration (condensedValues);
 		ComputeBeats (deltas);
+		beatMaster.CalculatePower (audioClip.samples, 1024, 40);
 		visualMasterObject.audio.clip = audioClip;
 		visualMasterObject.audio.Play ();
 	}
@@ -80,7 +83,7 @@ public class Core : MonoBehaviour {
 			welchTotal[i] = DoFFT(ApplyBlackmanHarris(GrabSamples(samples, counter, segmentLength)));
 			counter += stepAmount;
 		}
-		condensedValues [offset] = Condense (WelchAverage(welchTotal), numberOfBands, false);
+		condensedValues [offset] = Condense ( FindMagnitudes(WelchAverage(welchTotal)), numberOfBands, false);
 		//condensedValues [offset] = Condense ((DoFFT(ApplyBlackmanHarris(samples))), numberOfBands, false);
 		//visualMaster.CreateRow (real);
 	}
@@ -132,9 +135,9 @@ public class Core : MonoBehaviour {
 		int[] cutoffs = new int[numBands];
 		int[] cutoffsAverage = new int[numBands];
 		int currentCutoff = 0;
-		for(int g = 0; g < numBands; g++) {
-			float f = (float)(g + 1) / (float)numBands;
-			cutoffs[g] = (int)(f * (float)values.Length / 2f);
+		for(int g = 0; g < numBands - 1; g++) {
+			float f = bandPercents[g];
+			cutoffs[g] = (int)(f * (float)values.Length);
 		}
 		for (int i = 0; i < values.Length/2; i++) {
 			if(i == cutoffs[currentCutoff]) {
@@ -177,7 +180,7 @@ public class Core : MonoBehaviour {
 					//visualMaster.CreateBeat(i * sampleSizeForFFT, values[i][g], g);
 					float mag = ((float)counters[g] / (float)lengths[g]) / averages[g];
 					//if(mag > averages[g]) 
-					if(mag > .25f)	beatMaster.CreateBeat((i - lengths[g]) * sampleSizeForFFT, lengths[g], g, mag);
+					if(mag > .7f)	beatMaster.CreateBeat((i - lengths[g]) * sampleSizeForFFT, lengths[g], g, mag);
 					if(lengths[g] > longestBeat) {
 						longestBeat = lengths[g];
 					}
@@ -220,7 +223,33 @@ public class Core : MonoBehaviour {
 			averages[g] = averages[g]/counters[g];
 			Debug.Log("Averages for band " + g.ToString() + " : " + averages[g].ToString());
 			averages[g] *= 1f;
+		}
+	}
 
+	void ComputeAverageSecondIteration(double[][] values) {
+		int[] counters = new int[averages.Length];
+		float[] oldAverages = new float[averages.Length];
+
+		for (int i = 0; i < oldAverages.Length; i++) {
+			oldAverages[i] = averages[i];
+			averages[i] = 0;
+		}
+
+		for (int i = 0; i < values.Length - 1; i++) {
+			for(int g = 0; g < values[i].Length; g++) {
+				if(values[i][g] >= oldAverages[g] * 1.25f) {
+					averages[g] += (float)values[i][g];
+				}
+				counters[g] += 1;
+				
+			}
+		}
+		
+		for(int g = 0; g < averages.Length; g++) {
+			Debug.Log("Second Totals for band " + g.ToString() + " : " + averages[g].ToString());
+			averages[g] = averages[g]/counters[g];
+			Debug.Log("Second Averages for band " + g.ToString() + " : " + averages[g].ToString());
+			averages[g] *= 1f;
 		}
 	}
 

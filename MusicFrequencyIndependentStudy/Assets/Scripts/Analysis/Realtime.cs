@@ -48,7 +48,7 @@ public class Realtime : MonoBehaviour {
 
 	Rect CreateGUIBox(int position, float value) {
 		float xPos = position;
-		float yPos = 100f;
+		float yPos = 100;
 		float width = 3f;
 		float height = -1 * value - 1;
 		return new Rect (xPos, yPos, width, height);
