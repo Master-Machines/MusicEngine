@@ -1,14 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Analysis\Core.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Analysis\Realtime.cs">
     <Files>
-      <File FileName="Assets\Scripts\Analysis\Core.cs" Line="171" Column="71" />
+      <File FileName="Assets\Scripts\Analysis\Core.cs" Line="167" Column="1" />
       <File FileName="Assets\Scripts\BeatMaster.cs" Line="16" Column="31" />
       <File FileName="Assets\Scripts\Visuals\ColorBox.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Analysis\FFT.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Beat.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Analysis\Realtime.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Visuals\ParticleBeatParser.cs" Line="34" Column="30" />
+      <File FileName="Assets\Scripts\Analysis\Realtime.cs" Line="53" Column="3" />
+      <File FileName="Assets\Scripts\Visuals\ParticleBeatParser.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Visuals\DestroyAfterTime.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Visuals\BasicMovement.cs" Line="1" Column="1" />
     </Files>

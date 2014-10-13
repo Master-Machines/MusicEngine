@@ -9,8 +9,10 @@ public class Core : MonoBehaviour {
 	public int sampleSizeFactorOf2;
 	private int numberOfBands = 8;
 	public int welchSegments = 16;
-	private float[] bandPercents = new float[8]{0.03f, 0.06f, 0.12f, 0.18f, 0.24f, 0.30f, 0.50f, 1f};
-	private int sampleSizeForFFT;
+	[HideInInspector]
+	public float[] bandPercents = new float[8]{0.03f, 0.06f, 0.12f, 0.18f, 0.24f, 0.30f, 0.50f, 1f};
+	[HideInInspector]
+	public int sampleSizeForFFT;
 	private BeatMaster beatMaster;
 	private double[][] condensedValues;
 	public double[][] deltas;
@@ -80,13 +82,14 @@ public class Core : MonoBehaviour {
 			welchTotal[i] = DoFFT(ApplyBlackmanHarris(GrabSamples(samples, counter, segmentLength)));
 			counter += stepAmount;
 		}
-		condensedValues [offset] = Condense ( FindMagnitudes(WelchAverage(welchTotal)), numberOfBands, false);
+		condensedValues [offset] = Condense ((WelchAverage(welchTotal)), numberOfBands, false);
 		//condensedValues [offset] = Condense ((DoFFT(ApplyBlackmanHarris(samples))), numberOfBands, false);
 	}
 
 	double[] WelchAverage(double[][] values) {
 		double[] results = new double[values[0].Length];
 		for (int i = 0; i < values.Length; i++) {
+			//values[i] = FindMagnitudes(values[i]);
 			for(int g = 0; g < values[i].Length; g++) {
 				results[g] += values[i][g];
 			}		
@@ -168,7 +171,7 @@ public class Core : MonoBehaviour {
 			bool isPositive = false;
 			for(int g = 0; g < values[i].Length; g++) {
 				// && CompareToCloseParts(g, i, 100, values, 1d)
-				if(values[i][g] > .1d * averages[g] && CompareToCloseParts(g, i, 4, values, 2d)) {
+				if(values[i][g] > .02d * averages[g] && CompareToCloseParts(g, i, 4, values, 2d)) {
 					beatMaster.CreateBeat((i - lengths[g]) * sampleSizeForFFT, 1, g, (float)values[i][g]);
 				}
 

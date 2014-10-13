@@ -123,8 +123,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: coreScriptObject
+      value: 
+      objectReference: {fileID: 377017885}
     m_RemovedComponents:
     - {fileID: 11400002, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
@@ -163,6 +167,16 @@ MonoBehaviour:
   beatMasterGameObject: {fileID: 1219720268}
   sampleSizeFactorOf2: 12
   welchSegments: 8
+  bandPercents:
+  - .0299999993
+  - .0599999987
+  - .119999997
+  - .180000007
+  - .239999995
+  - .300000012
+  - .5
+  - 1
+  sampleSizeForFFT: 0
 --- !u!4 &377017888
 Transform:
   m_ObjectHideFlags: 0
@@ -273,7 +287,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 36106976}
   m_GameObject: {fileID: 1219720268}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7987167b76dfde748bfd891ab1c0f2e6, type: 3}
   m_Name: 
@@ -340,6 +354,8 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
+  coreScriptObject: {fileID: 377017885}
+  displayCondensedValues: 1
 --- !u!114 &1219720273
 MonoBehaviour:
   m_ObjectHideFlags: 0
