@@ -18,7 +18,7 @@ RenderSettings:
   m_FogDensity: .00999999978
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientLight: {r: .360294104, g: .370890975, b: .370890975, a: 1}
+  m_AmbientLight: {r: .632352948, g: .646301925, b: .646301925, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: .5
   m_FlareStrength: 1
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2b1953c430c5b4db84a0e122e9d9b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 24acb1a54be46c545bd65476e02ba458, type: 3}
+  audioClip: {fileID: 8300000, guid: 6de87bded4a58714bbc2226365161ec6, type: 3}
   beatMasterGameObject: {fileID: 1219720268}
   sampleSizeFactorOf2: 12
   welchSegments: 8
@@ -648,7 +648,7 @@ Prefab:
     - target: {fileID: 11400000, guid: 10f02e4b90349d046a128ea1d3b2ee0b, type: 2}
       propertyPath: audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 24acb1a54be46c545bd65476e02ba458, type: 3}
+      objectReference: {fileID: 8300000, guid: 6de87bded4a58714bbc2226365161ec6, type: 3}
     - target: {fileID: 11400000, guid: 10f02e4b90349d046a128ea1d3b2ee0b, type: 2}
       propertyPath: sampleSizeFactorOf2
       value: 12

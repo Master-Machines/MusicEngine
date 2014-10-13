@@ -30,8 +30,8 @@ public class ParticleBeatParser : MonoBehaviour {
 		int band = (int)options [0];
 		float mag = options [1];
 		GameObject createdBeat = (GameObject)Instantiate (delayedBeatParticles, new Vector3 (band * 5f, 0f, 10f), Quaternion.identity);
-		float baseRadius = .3f;
-		float radiusMultiplier = 100f;
+		float baseRadius = .2f;
+		float radiusMultiplier = 180f;
 		createdBeat.transform.localScale = new Vector3 (baseRadius + radiusMultiplier * mag, baseRadius + radiusMultiplier * mag, baseRadius + radiusMultiplier * mag);
 		//createdBeat.particleSystem.startLifetime = beatLength [beatIndex] * .1f + .6f;
 		//createdBeat.particleSystem.startColor = new Color (1f, 1f, 1f, beatMagnitude[beatIndex] * 5f);

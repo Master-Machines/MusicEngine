@@ -98,20 +98,20 @@ public class Core : MonoBehaviour {
 		return results;
 	}
 
-	float[] GrabSamples(float[] values, int startingIndex, int numSamples) {
-		float[] samples = new float[numSamples];
+	double[] GrabSamples(float[] values, int startingIndex, int numSamples) {
+		double[] samples = new double[numSamples];
 		for (int i = 0; i < numSamples; i++) {
 			samples[i] = values[startingIndex + i];		
 		}
 		return samples;
 	}
 
-	double[] DoFFT(float[] values) {
+	double[] DoFFT(double[] values) {
 		double[] real = new double[values.Length];
 		double[] imaginary = new double[values.Length];
 		for (int i = 0; i < values.Length; i++) {
 			imaginary[i] = 0f;
-			real[i] = (double)values[i];
+			real[i] = values[i];
 		}
 		FFT2 fft = new FFT2();
 		fft.init((uint)Mathf.Log ((float)values.Length));
@@ -132,10 +132,10 @@ public class Core : MonoBehaviour {
 		int[] cutoffsAverage = new int[numBands];
 		int currentCutoff = 0;
 		for(int g = 0; g < numBands - 1; g++) {
-			float f = bandPercents[g];
+			float f = bandPercents[g] / 2f;
 			cutoffs[g] = (int)(f * (float)values.Length);
 		}
-		for (int i = 0; i < values.Length; i++) {
+		for (int i = 0; i < values.Length / 2; i++) {
 			if(i == cutoffs[currentCutoff]) {
 				currentCutoff ++;
 			}
@@ -167,8 +167,8 @@ public class Core : MonoBehaviour {
 		for (int i = 0; i < values.Length - 1; i++) {
 			bool isPositive = false;
 			for(int g = 0; g < values[i].Length; g++) {
-
-				if(values[i][g] > .11d * averages[g] && CompareToCloseParts(g, i, 4, values, 2.4d) && CompareToCloseParts(g, i, 100, values, 1d)) {
+				// && CompareToCloseParts(g, i, 100, values, 1d)
+				if(values[i][g] > .1d * averages[g] && CompareToCloseParts(g, i, 4, values, 2d)) {
 					beatMaster.CreateBeat((i - lengths[g]) * sampleSizeForFFT, 1, g, (float)values[i][g]);
 				}
 
@@ -282,12 +282,12 @@ public class Core : MonoBehaviour {
 		return values;
 	}
 
-	float[] ApplyBlackmanHarris(float[] values) {
+	double[] ApplyBlackmanHarris(double[] values) {
 		for (int n = 0; n < values.Length; n++) {
-			float val = values[n];
-			values[n] = 0.35875f - (0.48829f * Mathf.Cos((2f * Mathf.PI * val) / (values.Length - 1)));
-			values[n] += 0.14128f * Mathf.Cos ((4f * Mathf.PI * val) / (values.Length - 1));
-			values[n] -= 0.01168f * Mathf.Cos((6f * Mathf.PI * val) / (values.Length - 1));
+			double val = values[n];
+			values[n] = 0.35875f - (0.48829f * System.Math.Cos((2f * System.Math.PI * val) / (values.Length - 1)));
+			values[n] += 0.14128f * System.Math.Cos ((4f * System.Math.PI * val) / (values.Length - 1));
+			values[n] -= 0.01168f * System.Math.Cos((6f * System.Math.PI * val) / (values.Length - 1));
 		}
 		return values;
 	}

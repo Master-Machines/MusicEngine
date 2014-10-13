@@ -13,7 +13,7 @@ public class BeatMaster : MonoBehaviour {
 	private List<int> beatLength = new List<int>();
 	private List<int> beatTime = new List<int>();
 	private List<bool> beatTriggered = new List<bool>();
-	private int visualDelay = 175;
+	private int visualDelay = 190;
 	[HideInInspector]
 	public int audioFrequency;
 	[HideInInspector]
