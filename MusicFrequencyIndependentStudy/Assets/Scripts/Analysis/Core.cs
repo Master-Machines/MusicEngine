@@ -271,7 +271,7 @@ public class Core : MonoBehaviour {
 			if(compareTo[index][i] > highestBand)	highestBand = compareTo[index][i];		
 		}
 		
-		if (val > (ampRequired * avg) && val > (0f * highestBand) ) {
+		if (val > (ampRequired * avg) && val > (0.95f * highestBand) ) {
 			return true;		
 		}
 		return false;
