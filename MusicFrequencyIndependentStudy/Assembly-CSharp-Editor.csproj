@@ -55,6 +55,7 @@
      <None Include="Assets\Plugins\donotdelete.txt" />
      <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection_Mesh.shader" />
      <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection_Mesh_CA.shader" />
+     <None Include="Assets\Scripts\Visuals\Grid.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection_Mesh_CA_TW.shader" />
      <None Include="Assets\OVR\Shaders\TextShader3D.shader" />

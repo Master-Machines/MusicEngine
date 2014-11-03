@@ -9,13 +9,25 @@ public class Firework : MonoBehaviour {
 	public float timeToExplode;
 	public GameObject movementObj;
 	public GameObject trailBlue;
+	private ScoreTracker scoreTracker;
 	// Use this for initialization
 	IEnumerator Start () {
+		scoreTracker = GameObject.Find("ScoreTracker").GetComponent<ScoreTracker>();
 		yield return new WaitForSeconds(timeToExplode);
 		if (hasBeenHit) {
-			for(int i = 0; i < explosionParticles.Length - 1; i++) {
+			int numPartles = 0;
+			if(transform.position.y > 30) {
+				numPartles = 3;
+			} else if(transform.position.y > 0) {
+				numPartles = 2;
+			} else if(transform.position.y > -20) {
+				numPartles = 1;
+			}
+			for(int i = 0; i < numPartles; i++) {
 				explosionParticles[i].particleSystem.Play();
 			}
+		} else {
+			scoreTracker.Hit();
 		}
 	}
 	
@@ -31,7 +43,8 @@ public class Firework : MonoBehaviour {
 			trail.particleSystem.Stop();
 			trailBlue.particleSystem.Play();
 			hitParticles.particleSystem.Play();
-			movementObj.GetComponent<BasicMovement>().velocity = new Vector3(0f, 17f, 0f);
+			movementObj.GetComponent<BasicMovement>().velocity = new Vector3(Random.Range(-4f, 4f), Random.Range(12f, 20f), Random.Range(-4f, 4f));
+			scoreTracker.AddPoints();
 		}
 		
 	}

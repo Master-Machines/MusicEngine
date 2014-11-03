@@ -171,8 +171,10 @@ public class Core : MonoBehaviour {
 			bool isPositive = false;
 			for(int g = 0; g < values[i].Length; g++) {
 				// && CompareToCloseParts(g, i, 100, values, 1d)
-				if(values[i][g] > .02d * averages[g] && CompareToCloseParts(g, i, 4, values, 2d)) {
-					beatMaster.CreateBeat((i - lengths[g]) * sampleSizeForFFT, 1, g, (float)values[i][g]);
+				if(values[i][g] > .02d * averages[g] && CompareToCloseParts(g, i, 4, values, 2.4d)) {
+					beatMaster.CreateBeat((i - lengths[g]) * sampleSizeForFFT, 1, g, 2f);
+				} else if(values[i][g] > .02d * averages[g] && CompareToCloseParts(g, i, 4, values, 1.86d)) {
+					beatMaster.CreateBeat((i - lengths[g]) * sampleSizeForFFT, 1, g, 1f);
 				}
 
 //				if(values[i][g] > 0) {
