@@ -85,7 +85,7 @@ GameObject:
   - 23: {fileID: 62239753}
   - 102: {fileID: 62239752}
   - 114: {fileID: 62239751}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Multiplier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,6 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b5956ee1d858d4d8e0941c61bd6daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useName: 0
+  name: 
   target: {fileID: 858545257}
 --- !u!102 &62239752
 TextMesh:
@@ -167,7 +169,7 @@ GameObject:
   - 4: {fileID: 253850433}
   - 114: {fileID: 253850432}
   - 154: {fileID: 253850431}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +234,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 375450615}
   - 108: {fileID: 375450614}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GridLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +299,7 @@ GameObject:
   - 198: {fileID: 510979971}
   - 199: {fileID: 510979970}
   - 114: {fileID: 510979969}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Crosshair Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,7 +332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftCam: {fileID: 2092224742}
   rightCam: {fileID: 578329273}
-  zOffset: 1
+  zOffset: 2
 --- !u!199 &510979970
 ParticleSystemRenderer:
   m_ObjectHideFlags: 0
@@ -542,7 +544,7 @@ ParticleSystem:
         rgba: 2537029376
       minMaxState: 0
     startSize:
-      scalar: .200000003
+      scalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1441,7 +1443,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 531471569}
   - 65: {fileID: 531471568}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: 100m marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1486,7 +1488,7 @@ GameObject:
   - 114: {fileID: 578329275}
   - 114: {fileID: 578329274}
   - 114: {fileID: 578329280}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CameraRight
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -1635,7 +1637,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -60
+      value: -33
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1660,14 +1662,14 @@ Prefab:
     - target: {fileID: 11400020, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
       propertyPath: greenCrosshairObj
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 510979967}
     - target: {fileID: 19800002, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
       propertyPath: InitialModule.startLifetime.scalar
       value: .300000012
       objectReference: {fileID: 0}
     - target: {fileID: 19800002, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
       propertyPath: InitialModule.startSize.scalar
-      value: .200000003
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19800002, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
       propertyPath: SizeModule.enabled
@@ -1807,7 +1809,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400024, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2000002, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
       propertyPath: far clip plane
@@ -1816,6 +1818,46 @@ Prefab:
     - target: {fileID: 2000000, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
       propertyPath: far clip plane
       value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400020, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400018, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400016, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+      propertyPath: zOffset
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800000, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+      propertyPath: InitialModule.startSize.scalar
+      value: .150000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400022, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+      propertyPath: zOffset
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
@@ -1831,7 +1873,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 697455959}
   - 114: {fileID: 697455958}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MusicMaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1850,10 +1892,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f2b1953c430c5b4db84a0e122e9d9b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 24acb1a54be46c545bd65476e02ba458, type: 3}
+  audioClip: {fileID: 8300000, guid: d2c1e654256f6a244a30a9e6b3cad8f9, type: 3}
   beatMasterGameObject: {fileID: 1329536100}
-  sampleSizeFactorOf2: 12
-  welchSegments: 8
+  sampleSizeFactorOf2: 11
+  welchSegments: 4
   bandPercents:
   - .0299999993
   - .0599999987
@@ -1862,6 +1904,15 @@ MonoBehaviour:
   - .239999995
   - .300000012
   - .5
+  - 1
+  bandPercentsLinear:
+  - .125
+  - .25
+  - .375
+  - .5
+  - .625
+  - .75
+  - .875
   - 1
   sampleSizeForFFT: 0
 --- !u!4 &697455959
@@ -1885,7 +1936,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 749474184}
   - 114: {fileID: 749474183}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ScoreTracker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1925,7 +1976,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 830057705}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BeatCollector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1958,7 +2009,7 @@ GameObject:
   - 114: {fileID: 858545260}
   - 114: {fileID: 858545259}
   - 114: {fileID: 858545264}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: OVRCameraController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1972,7 +2023,7 @@ Transform:
   m_PrefabInternal: {fileID: 682702511}
   m_GameObject: {fileID: 858545257}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -50, z: -60}
+  m_LocalPosition: {x: 0, y: -50, z: -33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2092224743}
@@ -2114,7 +2165,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   redCrosshairObj: {fileID: 1382370351}
-  greenCrosshairObj: {fileID: 0}
+  greenCrosshairObj: {fileID: 510979967}
 --- !u!1001 &1265882447
 Prefab:
   m_ObjectHideFlags: 0
@@ -2161,7 +2212,19 @@ Prefab:
     - target: {fileID: 11400000, guid: 10f02e4b90349d046a128ea1d3b2ee0b, type: 2}
       propertyPath: audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 24acb1a54be46c545bd65476e02ba458, type: 3}
+      objectReference: {fileID: 8300000, guid: d2c1e654256f6a244a30a9e6b3cad8f9, type: 3}
+    - target: {fileID: 11400000, guid: 10f02e4b90349d046a128ea1d3b2ee0b, type: 2}
+      propertyPath: sampleSizeFactorOf2
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 10f02e4b90349d046a128ea1d3b2ee0b, type: 2}
+      propertyPath: welchSegments
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 10f02e4b90349d046a128ea1d3b2ee0b, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10f02e4b90349d046a128ea1d3b2ee0b, type: 2}
   m_RootGameObject: {fileID: 697455957}
@@ -2178,7 +2241,7 @@ GameObject:
   - 82: {fileID: 1329536105}
   - 114: {fileID: 1329536103}
   - 114: {fileID: 1329536102}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: VisualMaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2210,14 +2273,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2561b62309a20714ca0dc294001857ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beatParticles: {fileID: 100000, guid: 9389fc22ed8d2e040b6dab37ef7057ce, type: 2}
-  delayedBeatParticles: {fileID: 100000, guid: 49a2f7a579d464e4498a9a3b1aa1037c, type: 2}
+  linearBeat: {fileID: 100010, guid: 50fd6139ffa488f48a48a3cc8067a5b5, type: 2}
   crazyDelayedBeatParticles: {fileID: 100004, guid: ffa7c2663bf21b04a94da02885e029b6,
     type: 2}
   secondaryCrazyDelayedBeatParticles: {fileID: 100004, guid: 074929adf62e47940ac416ddc55af17e,
     type: 2}
   creationPlane: {x: 20, y: 16}
-  primaryDelay: 4000
+  primaryDelay: 2000
   xrayObj: {fileID: 578329273}
   xrayObj2: {fileID: 2092224742}
   gridLight: {fileID: 375450613}
@@ -2231,6 +2293,20 @@ MonoBehaviour:
   - {r: 0, g: 1, b: .503448248, a: 1}
   - {r: 0, g: 1, b: .0482759476, a: 1}
   - {r: .613793135, g: 1, b: 0, a: 1}
+  directions:
+  - {x: 0, y: 1}
+  - {x: .5, y: .5}
+  - {x: 1, y: 0}
+  - {x: .5, y: -.5}
+  - {x: 0, y: -1}
+  - {x: -.5, y: -.5}
+  - {x: -1, y: 0}
+  - {x: -.5, y: .5}
+  centerX: 0
+  rangeX: 40
+  centerY: -28
+  rangeY: 15
+  lineTracker: {fileID: 100000, guid: 0e0993a791d66ce459fdf4c9085d510a, type: 2}
 --- !u!114 &1329536103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2243,8 +2319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 060437398ac6e1e41862db9e84d15984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryDelay: 4000
-  parserMethodName: CrazyDelayedTriggerParticleBeat
+  primaryDelay: 2000
+  parserMethodName: CreateLinearBeat
   audioFrequency: 0
   sampleSize: 0
   sampleRate: 0
@@ -2366,6 +2442,7 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
+  minTimeBetweenBeats: 30000
 --- !u!82 &1329536105
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2436,7 +2513,7 @@ GameObject:
   - 23: {fileID: 1376282876}
   - 102: {fileID: 1376282875}
   - 114: {fileID: 1376282874}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2454,6 +2531,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b5956ee1d858d4d8e0941c61bd6daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useName: 0
+  name: 
   target: {fileID: 858545257}
 --- !u!102 &1376282875
 TextMesh:
@@ -2519,7 +2598,7 @@ GameObject:
   - 198: {fileID: 1382370354}
   - 199: {fileID: 1382370353}
   - 114: {fileID: 1382370355}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Crosshair Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2749,7 +2828,7 @@ ParticleSystem:
         rgba: 3863431167
       minMaxState: 0
     startSize:
-      scalar: .0199999996
+      scalar: .150000006
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -3638,7 +3717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftCam: {fileID: 2092224742}
   rightCam: {fileID: 578329273}
-  zOffset: 1
+  zOffset: 5
 --- !u!1001 &2079569684
 Prefab:
   m_ObjectHideFlags: 0
@@ -3646,6 +3725,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
       propertyPath: gridFlashColors.Array.size
       value: 9
@@ -3688,11 +3771,11 @@ Prefab:
       objectReference: {fileID: 697455957}
     - target: {fileID: 11400002, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
       propertyPath: primaryDelay
-      value: 4000
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 11400002, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
       propertyPath: parserMethodName
-      value: CrazyDelayedTriggerParticleBeat
+      value: CreateLinearBeat
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
       propertyPath: crazyDelayedBeatParticles
@@ -3716,7 +3799,7 @@ Prefab:
       objectReference: {fileID: 578329273}
     - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
       propertyPath: primaryDelay
-      value: 4000
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
       propertyPath: xrayObj2
@@ -3886,6 +3969,86 @@ Prefab:
       propertyPath: gridFlashColors.Array.data[8].r
       value: .613793135
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.data[0].y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.data[1].x
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.data[1].y
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.data[2].x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.data[3].x
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.data[3].y
+      value: -.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.data[4].y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.data[5].x
+      value: -.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.data[5].y
+      value: -.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.data[6].x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.data[7].x
+      value: -.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: directions.Array.data[7].y
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: linearBeat
+      value: 
+      objectReference: {fileID: 100010, guid: 50fd6139ffa488f48a48a3cc8067a5b5, type: 2}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: rangeX
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: rangeY
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: centerY
+      value: -28
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: lineTracker
+      value: 
+      objectReference: {fileID: 100000, guid: 0e0993a791d66ce459fdf4c9085d510a, type: 2}
+    - target: {fileID: 11400002, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: minTimeBetweenBeats
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400000, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: d649ca70c9a557e4a8104c709c9c9cc3, type: 2}
@@ -3905,7 +4068,7 @@ GameObject:
   - 114: {fileID: 2092224745}
   - 114: {fileID: 2092224744}
   - 114: {fileID: 2092224748}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CameraLeft
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -4013,7 +4176,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 682702511}
   m_GameObject: {fileID: 2092224742}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5cf7a879732571c47919e2f784295c67, type: 3}
   m_Name: 

@@ -9,11 +9,10 @@ public class BeatMaster : MonoBehaviour {
 
 
 	private List<int> beatBand = new List<int>();
-	private List<float> beatMagnitude = new List<float>();
-	private List<int> beatLength = new List<int>();
+	private List<float[]> beatMagnitudes = new List<float[]>();
 	private List<int> beatTime = new List<int>();
 	private List<bool> beatTriggered = new List<bool>();
-	private int visualDelay = 190;
+	private int visualDelay = 130;
 	[HideInInspector]
 	public int audioFrequency;
 	[HideInInspector]
@@ -32,6 +31,8 @@ public class BeatMaster : MonoBehaviour {
 	private Texture2D tex2;
 	[HideInInspector]
 	public GUIStyle gui2;
+	
+	public int minTimeBetweenBeats;
 	// Use this for initialization
 	void Start () {
 		tex = new Texture2D (1, 1);
@@ -48,7 +49,7 @@ public class BeatMaster : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		CheckForBeats ();
-		currentPowerIndex = audio.timeSamples / powerTimeIncrement;
+		//currentPowerIndex = audio.timeSamples / powerTimeIncrement;
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
 			visualDelay += 5;
 		} else if (Input.GetKeyDown (KeyCode.RightArrow)) {
@@ -57,6 +58,18 @@ public class BeatMaster : MonoBehaviour {
 			visualDelay -= 5;
 		} else if (Input.GetKeyDown (KeyCode.LeftArrow)) {
 			visualDelay --;	
+		}
+	}
+	
+	public void RemoveBeatsThatAreTooClose() {
+		int lastTime = 0;
+		int minTime = Global.minTimeBetweenBeats;
+		for (int i = 0; i < beatTime.Count; i++) {
+			if(beatTime[i] < lastTime + minTime) {
+				beatTriggered[i] = true;
+			} else {
+				lastTime = beatTime[i]; 
+			}
 		}
 	}
 
@@ -88,16 +101,14 @@ public class BeatMaster : MonoBehaviour {
 
 	IEnumerator TriggerBeat(int currentTime, int beatIndex) {
 		yield return new WaitForSeconds ((sampleRate) * (beatTime [beatIndex] - currentTime) + (visualDelay * 0.001f));
-		gameObject.SendMessage (parserMethodName, new float[2]{(float)beatBand[beatIndex], beatMagnitude[beatIndex]});
+		gameObject.SendMessage (parserMethodName, beatMagnitudes[beatIndex]);
 	}
 
 	// Time is starting time in samples, length is length of the beat in samples
-	public void CreateBeat(int time, int length, int band, float mag) {
+	public void CreateBeat(int time, double[] m) {
 		beatTime.Add (time);
-		beatLength.Add (length);
-		beatMagnitude.Add (mag);
-		beatBand.Add (band);
 		beatTriggered.Add (false);
+		beatMagnitudes.Add(new float[8]{ (float)m[0], (float)m[1], (float)m[2], (float)m[3], (float)m[4], (float)m[5], (float)m[6], (float)m[7]});
 		totalBeats ++;
 	}
 
@@ -110,7 +121,7 @@ public class BeatMaster : MonoBehaviour {
 		int pIndex = 0;
 		for (int i = 0; i < beatTime.Count; i++) {
 			bTime = beatTime[i];
-			bMag = beatMagnitude[i];
+			bMag = 0f;
 			pIndex = bTime / sampleIncrement;
 			for(int g = pIndex - sampleRange/2; g < pIndex + sampleRange; g++) {
 				if(g > 0 && g < power.Length) {

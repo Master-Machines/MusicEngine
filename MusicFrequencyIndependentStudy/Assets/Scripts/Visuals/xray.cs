@@ -13,17 +13,28 @@ public class xray : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(canShoot) {
-			LaserIt();
+		LaserIt();
+	}
+	
+	void LaserItScreenCoords() {
+		Vector3 dirToCrosshair = (redCrosshairObj.transform.position - transform.position).normalized;
+		Ray ray = camera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+		RaycastHit hit;
+		Debug.DrawRay(gameObject.transform.position, dirToCrosshair * 100f);
+		if(Physics.Raycast(ray, out hit, 1000f)) {
+			Firework f = hit.collider.gameObject.GetComponent<Firework>();
+			if(f != null) {
+				f.GetHit();
+			}
+			
 		}
-		
 	}
 	
 	void LaserIt() {
-		Vector3 dirToCrosshair = (redCrosshairObj.transform.position - transform.position).normalized;
+		Vector3 dirToCrosshair = camera.transform.forward.normalized;
 		Ray ray = new Ray(gameObject.transform.position, dirToCrosshair);
 		RaycastHit hit;
-		Debug.DrawRay(gameObject.transform.position, dirToCrosshair * 100f);
+		Debug.DrawRay(camera.transform.position, dirToCrosshair * 100f);
 		if(Physics.Raycast(ray, out hit, 1000f)) {
 			Firework f = hit.collider.gameObject.GetComponent<Firework>();
 			if(f != null) {

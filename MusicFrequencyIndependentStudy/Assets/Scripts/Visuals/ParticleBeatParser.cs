@@ -2,10 +2,8 @@
 using System.Collections;
 
 public class ParticleBeatParser : MonoBehaviour {
-	public GameObject beatParticles;
 
-	public GameObject delayedBeatParticles;
-	
+	public GameObject linearBeat;
 	public GameObject crazyDelayedBeatParticles;
 	public GameObject secondaryCrazyDelayedBeatParticles;
 	public Vector2 creationPlane;
@@ -16,58 +14,82 @@ public class ParticleBeatParser : MonoBehaviour {
 	public Color[] gridFlashColors;
 	private xray ray;
 	private xray ray2;
+	private Vector3 currentBeatPosition;
+	public Vector2[] directions;
+	public float centerX;
+	public float rangeX;
+	public float centerY;
+	public float rangeY;
+	public GameObject lineTracker;
+	private Vector3 lastBeatPosition;
+	private int triggeredBeats = 0;
 	// Use this for initialization
 	void Start () {
 		ray = xrayObj.GetComponent<xray>();
 		ray2 = xrayObj2.GetComponent<xray>();
+		currentBeatPosition = new Vector3(centerX, centerY, 0f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		gridLight.light.range *= .92f;
 	}
-
-	public void TriggerParticleBeat(float[] options) {
-		int band = (int)options [0];
-		float mag = options [1];
-		GameObject createdBeat = (GameObject)Instantiate (beatParticles, new Vector3 (band * 5f, 0f, 0f), Quaternion.identity);
-		//createdBeat.particleSystem.startLifetime = beatLength [beatIndex] * .1f + .6f;
-		//createdBeat.particleSystem.startColor = new Color (1f, 1f, 1f, beatMagnitude[beatIndex] * 5f);
-		//createdBeat.particleSystem.time = 0f;
-		//createdBeat.particleSystem.Play ();
-	}
-
-
-	public void DelayedTriggerParticleBeat(float[] options) {
-		int band = (int)options [0];
-		float mag = options [1];
-		GameObject createdBeat = (GameObject)Instantiate (delayedBeatParticles, new Vector3 (band * 5f, 0f, 10f), Quaternion.identity);
-		float baseRadius = .2f;
-		float radiusMultiplier = 180f;
-		createdBeat.transform.localScale = new Vector3 (baseRadius + radiusMultiplier * mag, baseRadius + radiusMultiplier * mag, baseRadius + radiusMultiplier * mag);
-		//createdBeat.particleSystem.startLifetime = beatLength [beatIndex] * .1f + .6f;
-		//createdBeat.particleSystem.startColor = new Color (1f, 1f, 1f, beatMagnitude[beatIndex] * 5f);
-		//createdBeat.particleSystem.time = 0f;
-		//createdBeat.particleSystem.Play ();
+	
+	public void CreateLinearBeat(float[] magnitudes) {
+		Vector2 direction = new Vector2(0f, 0f);
+		float distanceModifier = .5f;
+		for(int i = 0; i < magnitudes.Length; i++) {
+			direction.x += directions[i].x * magnitudes[i] * distanceModifier;
+			direction.y +=  directions[i].y * magnitudes[i] * distanceModifier;
+		}
+		direction = ModifyDirection(direction);
+		bool reverseX = false;
+		bool reverseY = false;
+		if(currentBeatPosition.x + direction.x  < centerX - rangeX || currentBeatPosition.x + direction.x > centerX + rangeX) {
+			direction.x *= -1f;
+			reverseX = true;
+		}
+		if(currentBeatPosition.y + direction.y < centerY - rangeY || currentBeatPosition.y + direction.y > centerY + rangeY) {
+			direction.y *= -1f;
+			reverseY = true;
+		}
+		
+		if(reverseX || reverseY) {
+			ReverseDirections(reverseX, reverseY);
+		}
+		currentBeatPosition = new Vector3(currentBeatPosition.x + direction.x, currentBeatPosition.y + direction.y, Mathf.Abs(currentBeatPosition.x + direction.x)/ -2f );
+		Instantiate(linearBeat, currentBeatPosition, Quaternion.identity);
+		
+		if (triggeredBeats > 0) {
+			GameObject g = (GameObject)Instantiate(lineTracker, transform.position, Quaternion.identity);
+			LineTracker lt = g.GetComponent<LineTracker>();
+			StartCoroutine(lt.Instantiate(lastBeatPosition, currentBeatPosition, 7f));
+		}
+		triggeredBeats ++;
+		lastBeatPosition = currentBeatPosition;
+		StartCoroutine(TriggerCrosshair(true));
 	}
 	
-	public void CrazyDelayedTriggerParticleBeat(float[] options) {
-		int band = (int)options [0];
-		float mag = options [1];
-		GameObject createdBeat;
-		if(mag == 2f) {
-			if(Time.time > 5f) {
-				createdBeat = (GameObject)Instantiate (crazyDelayedBeatParticles, new Vector3 (Random.Range(-1f * creationPlane.x, creationPlane.x), 0f, Random.Range(-1f * creationPlane.y, creationPlane.y)), Quaternion.identity);
+	void ReverseDirections(bool x, bool y) {
+		for(int i = 0; i < directions.Length; i++) {
+			if(x) {
+				directions[i].x *= -1f;		
 			}
-			StartCoroutine(TriggerCrosshair(true));
-		} else {
-			StartCoroutine(TriggerCrosshair(false));
-			// createdBeat = (GameObject)Instantiate (secondaryCrazyDelayedBeatParticles, new Vector3 (Random.Range(-1f * creationPlane.x, creationPlane.x), 0f, Random.Range(-1f * creationPlane.y, creationPlane.y)), Quaternion.identity);
+			if(y) {
+				directions[i].y *= -1f;
+			}
 		}
-		/*float baseRadius = .2f;
-		float radiusMultiplier = 180f;
-		createdBeat.transform.localScale = new Vector3 (baseRadius + radiusMultiplier * mag, baseRadius + radiusMultiplier * mag, baseRadius + radiusMultiplier * mag);
-		*/
+		Debug.Log("Direction reversed");
+	}
+	
+	Vector2 ModifyDirection(Vector2 d) {
+		float total = Mathf.Abs(d.x) + Mathf.Abs(d.y);
+		if(total > 14f) {
+			total = 14f;
+		}
+		d.Normalize();
+		return new Vector2(d.x * (5f + total), d.y * (5f + total));
+		
 	}
 	
 	private IEnumerator TriggerCrosshair(bool isBig) {

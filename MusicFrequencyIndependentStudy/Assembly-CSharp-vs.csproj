@@ -70,12 +70,16 @@
      <Compile Include="Assets\Scripts\Analysis\Realtime.cs" />
      <Compile Include="Assets\Scripts\Beat.cs" />
      <Compile Include="Assets\Scripts\BeatMaster.cs" />
+     <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\Visuals\BasicMovement.cs" />
      <Compile Include="Assets\Scripts\Visuals\ColorBox.cs" />
      <Compile Include="Assets\Scripts\Visuals\Crosshair.cs" />
      <Compile Include="Assets\Scripts\Visuals\DestroyAfterTime.cs" />
      <Compile Include="Assets\Scripts\Visuals\Firework.cs" />
+     <Compile Include="Assets\Scripts\Visuals\Global.cs" />
      <Compile Include="Assets\Scripts\Visuals\IncreaseSizeOverLifetime.cs" />
+     <Compile Include="Assets\Scripts\Visuals\LineMover.cs" />
+     <Compile Include="Assets\Scripts\Visuals\LineTracker.cs" />
      <Compile Include="Assets\Scripts\Visuals\LookAtTarget.cs" />
      <Compile Include="Assets\Scripts\Visuals\ParticleBeatParser.cs" />
      <Compile Include="Assets\Scripts\Visuals\ScoreTracker.cs" />
