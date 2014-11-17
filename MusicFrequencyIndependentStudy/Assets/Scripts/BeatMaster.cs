@@ -108,7 +108,12 @@ public class BeatMaster : MonoBehaviour {
 	public void CreateBeat(int time, double[] m) {
 		beatTime.Add (time);
 		beatTriggered.Add (false);
-		beatMagnitudes.Add(new float[8]{ (float)m[0], (float)m[1], (float)m[2], (float)m[3], (float)m[4], (float)m[5], (float)m[6], (float)m[7]});
+		float deltaTime = 0f;
+		if(totalBeats > 0) {
+			deltaTime = (float) (time - beatTime[totalBeats - 1]);
+		}
+		beatMagnitudes.Add(new float[9]{ (float)m[0], (float)m[1], (float)m[2], (float)m[3], (float)m[4], (float)m[5], (float)m[6], (float)m[7], deltaTime});
+		
 		totalBeats ++;
 	}
 

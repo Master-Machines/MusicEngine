@@ -48,7 +48,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  lengthInSec: 7
+  lengthInSec: 4
   startDelay: 0
   speed: 1
   randomSeed: 0
@@ -421,7 +421,7 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 2919235583
+          rgba: 1744830463
         key1:
           serializedVersion: 2
           rgba: 16777215

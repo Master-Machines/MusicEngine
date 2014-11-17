@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ParticleBeatParser : MonoBehaviour {
 
-	public GameObject linearBeat;
+	public GameObject[] linearBeats;
 	public GameObject crazyDelayedBeatParticles;
 	public GameObject secondaryCrazyDelayedBeatParticles;
 	public Vector2 creationPlane;
@@ -32,17 +32,12 @@ public class ParticleBeatParser : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		gridLight.light.range *= .92f;
+		//gridLight.light.range *= .92f;
 	}
 	
 	public void CreateLinearBeat(float[] magnitudes) {
 		Vector2 direction = new Vector2(0f, 0f);
-		float distanceModifier = .5f;
-		for(int i = 0; i < magnitudes.Length; i++) {
-			direction.x += directions[i].x * magnitudes[i] * distanceModifier;
-			direction.y +=  directions[i].y * magnitudes[i] * distanceModifier;
-		}
-		direction = ModifyDirection(direction);
+		direction = GetDirection(magnitudes);
 		bool reverseX = false;
 		bool reverseY = false;
 		if(currentBeatPosition.x + direction.x  < centerX - rangeX || currentBeatPosition.x + direction.x > centerX + rangeX) {
@@ -58,16 +53,16 @@ public class ParticleBeatParser : MonoBehaviour {
 			ReverseDirections(reverseX, reverseY);
 		}
 		currentBeatPosition = new Vector3(currentBeatPosition.x + direction.x, currentBeatPosition.y + direction.y, Mathf.Abs(currentBeatPosition.x + direction.x)/ -2f );
-		Instantiate(linearBeat, currentBeatPosition, Quaternion.identity);
+		Instantiate(linearBeats[GetStrongestMagnitudeIndex(magnitudes)], currentBeatPosition, Quaternion.identity);
 		
 		if (triggeredBeats > 0) {
 			GameObject g = (GameObject)Instantiate(lineTracker, transform.position, Quaternion.identity);
 			LineTracker lt = g.GetComponent<LineTracker>();
-			StartCoroutine(lt.Instantiate(lastBeatPosition, currentBeatPosition, 7f));
+			StartCoroutine(lt.Instantiate(lastBeatPosition, currentBeatPosition, 4f));
 		}
 		triggeredBeats ++;
 		lastBeatPosition = currentBeatPosition;
-		StartCoroutine(TriggerCrosshair(true));
+		//StartCoroutine(TriggerCrosshair(true));
 	}
 	
 	void ReverseDirections(bool x, bool y) {
@@ -82,14 +77,28 @@ public class ParticleBeatParser : MonoBehaviour {
 		Debug.Log("Direction reversed");
 	}
 	
-	Vector2 ModifyDirection(Vector2 d) {
-		float total = Mathf.Abs(d.x) + Mathf.Abs(d.y);
-		if(total > 14f) {
-			total = 14f;
-		}
-		d.Normalize();
-		return new Vector2(d.x * (5f + total), d.y * (5f + total));
+	Vector2 GetDirection(float[] magnitudes) {
+		int greatestBeatIndex = GetStrongestMagnitudeIndex(magnitudes);
+		Vector2 d = directions[greatestBeatIndex];
 		
+		float total = 2.5f + magnitudes[8] / 2400f;
+		if(total > 25f) {
+			total = 25f;
+		}
+		return new Vector2(d.x * total, d.y * total);
+		
+	}
+	
+	int GetStrongestMagnitudeIndex(float[] magnitudes) {
+		int greatestBeatIndex = 0;
+		float greatestBeatMag = 0f;
+		for(int i = 0; i < 8; i++) {
+			if(magnitudes[i] > greatestBeatMag) {
+				greatestBeatIndex = i;
+				greatestBeatMag = magnitudes[i];
+			}
+		}
+		return greatestBeatIndex;
 	}
 	
 	private IEnumerator TriggerCrosshair(bool isBig) {

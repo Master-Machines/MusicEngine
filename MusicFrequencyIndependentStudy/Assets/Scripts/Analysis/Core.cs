@@ -196,7 +196,7 @@ public class Core : MonoBehaviour {
 	void SingleBandBeatDetection(int index, double[][] values) {
 		int range = 14;
 		double zeroMag = 1.5d;
-		double minMag = 14f;
+		double minMag = 12f;
 		if(index < range) {
 			range = index;
 		}

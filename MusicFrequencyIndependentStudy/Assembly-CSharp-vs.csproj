@@ -82,6 +82,7 @@
      <Compile Include="Assets\Scripts\Visuals\LineTracker.cs" />
      <Compile Include="Assets\Scripts\Visuals\LookAtTarget.cs" />
      <Compile Include="Assets\Scripts\Visuals\ParticleBeatParser.cs" />
+     <Compile Include="Assets\Scripts\Visuals\RealtimeVisuals.cs" />
      <Compile Include="Assets\Scripts\Visuals\ScoreTracker.cs" />
      <Compile Include="Assets\Scripts\Visuals\VisualMaster.cs" />
      <Compile Include="Assets\Scripts\Visuals\xray.cs" />
