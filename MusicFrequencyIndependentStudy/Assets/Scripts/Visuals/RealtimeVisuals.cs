@@ -13,8 +13,11 @@ public class RealtimeVisuals : MonoBehaviour {
 	private ParticleSystem skyParticles;
 	private float[] currentPower;
 	private int[] bandCutoffs = new int[4]{64, 128, 192, 256};
+	private float songAverage;
 	// Use this for initialization
 	void Start () {
+		songAverage = Global.songTotalAverage;
+		Debug.Log(songAverage);
 		oldValues = new float[512];
 		currentValues = new float[512];
 		deltas = new float[512];
@@ -34,18 +37,18 @@ public class RealtimeVisuals : MonoBehaviour {
 		float counter = 0f;
 		for(int i = 0; i < 4; i++) {
 			gridLights[i].light.spotAngle *= .83f;
-			gridLights[i].light.spotAngle += (i + 1) * currentPower[i] * 60f;
+			gridLights[i].light.spotAngle += (i + 1) * currentPower[i] * 80f;
 			if(gridLights[i].light.spotAngle > 130f) {
 				gridLights[i].light.spotAngle = 130f;
 			}
 			counter += currentPower[i];
-			currentPower[i] *= .6f;
+			currentPower[i] *= .4f;
 			
 		}
 		ParticleSystem.Particle[] allParticles = new ParticleSystem.Particle[skyParticles.particleCount];
 		skyParticles.GetParticles(allParticles);
 		for(int i = 0; i < allParticles.Length; i++) {
-			allParticles[i].size = allParticles[i].size * .85f;
+			allParticles[i].size = allParticles[i].size * .83f;
 			allParticles[i].size = 1f + allParticles[i].size + counter * 2.6f;
 		}
 		skyParticles.SetParticles(allParticles, skyParticles.particleCount);
@@ -64,8 +67,9 @@ public class RealtimeVisuals : MonoBehaviour {
 		for(int i = 0; i < 512; i++) {
 			if(deltas[i] > 0) {
 				float power = Mathf.Pow(currentValues[i], 1f);
-				if(power > .7f) {
-					power = .7f;
+				power = power/3f + (power/ (songAverage * 10000000f))/2f;
+				if(power > .9f) {
+					power = .9f;
 				}
 				if(i > 0 && i < bandCutoffs[0]) {
 					currentPower[0] += power;

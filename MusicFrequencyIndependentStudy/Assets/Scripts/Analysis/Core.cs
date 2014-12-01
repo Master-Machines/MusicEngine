@@ -10,7 +10,7 @@ public class Core : MonoBehaviour {
 	private int numberOfBands = 8;
 	public int welchSegments = 16;
 	[HideInInspector]
-	public float[] bandPercents = new float[8]{0.03f, 0.06f, 0.12f, 0.18f, 0.24f, 0.30f, 0.50f, 1f};
+	public float[] bandPercents = new float[8]{0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.60f, 0.80f, 1f};
 	public float[] bandPercentsLinear = new float[8]{0.125f, 0.25f, 0.375f, 0.50f, 0.625f, 0.75f, 0.875f, 1f};
 	[HideInInspector]
 	public int sampleSizeForFFT;
@@ -23,6 +23,8 @@ public class Core : MonoBehaviour {
 	void Start () {
 		if(Global.audioClip != null) {
 			audioClip = Global.audioClip;
+		} else {
+			Global.audioClip = audioClip;
 		}
 		beatCount = new int[numberOfBands];
 		sampleSizeForFFT = (int)Mathf.Pow (2f, (float)sampleSizeFactorOf2);
@@ -63,6 +65,7 @@ public class Core : MonoBehaviour {
 		ComputeBeats (deltas);
 		//beatMaster.CalculatePower (audioClip.samples, 1024, 40);
 		beatMaster.RemoveBeatsThatAreTooClose();
+		beatMaster.SetBeatDeltas();
 		beatMaster.gameObject.audio.clip = audioClip;
 		beatMaster.gameObject.audio.Play ();
 	}
@@ -86,7 +89,7 @@ public class Core : MonoBehaviour {
 			welchTotal[i] = DoFFT(ApplyBlackmanHarris(GrabSamples(samples, counter, segmentLength)));
 			counter += stepAmount;
 		}
-		condensedValues [offset] = Condense ((WelchAverage(welchTotal)), numberOfBands, false);
+		condensedValues [offset] = Condense ((WelchAverage(welchTotal)), numberOfBands, true);
 		//condensedValues [offset] = Condense ((DoFFT(ApplyBlackmanHarris(samples))), numberOfBands, false);
 	}
 
@@ -139,7 +142,7 @@ public class Core : MonoBehaviour {
 		int[] cutoffsAverage = new int[numBands];
 		int currentCutoff = 0;
 		for(int g = 0; g < numBands - 1; g++) {
-			float f = bandPercentsLinear[g] / 2f;
+			float f = bandPercents[g] / 2f;
 			cutoffs[g] = (int)(f * (float)values.Length);
 		}
 		for (int i = 0; i < values.Length / 2; i++) {
@@ -175,28 +178,35 @@ public class Core : MonoBehaviour {
 
 	void ComputeAverages(double[][] values) {
 		int[] counters = new int[averages.Length];
+		int totalCounter = 0;
+		float total = 0f;
 		for (int i = 0; i < values.Length - 1; i++) {
 			for(int g = 0; g < values[i].Length; g++) {
 				if(values[i][g] >= 0) {
+					total += (float)values[i][g];
+					totalCounter ++;
 					averages[g] += (float)values[i][g];
 					counters[g] += 1;
 				}
 
 			}
 		}
-
+		Global.songTotalAverage = total / (float)totalCounter;
 		for(int g = 0; g < averages.Length; g++) {
 			//Debug.Log("Totals for band " + g.ToString() + " : " + averages[g].ToString());
 			averages[g] = averages[g]/counters[g];
 			//Debug.Log("Averages for band " + g.ToString() + " : " + averages[g].ToString());
 			averages[g] *= 1f;
 		}
+		
+		
 	}
 	
 	void SingleBandBeatDetection(int index, double[][] values) {
-		int range = 14;
-		double zeroMag = 1.5d;
-		double minMag = 12f;
+		int range = 6;
+		double zeroMag = 1d;
+		double minMag = 21f;
+		double maxMag = 60f;
 		if(index < range) {
 			range = index;
 		}
@@ -204,7 +214,9 @@ public class Core : MonoBehaviour {
 		for(int g = 0; g < 8; g++) {
 			for(int r = index - range; r < index + range; r++) {
 				if(r < values.Length && r != index) {
-					averageVals[g] += System.Math.Abs(values[r][g]);
+					if(values[r][g] > 0) {
+						averageVals[g] += values[r][g];
+					}
 				}
 				
 			}
@@ -215,11 +227,11 @@ public class Core : MonoBehaviour {
 		double totalMag = 0d;
 		for(int g = 0; g < 8; g++) {
 			if(averages[g] != 0d) {
-				beatPersonality[g] = values[index][g] / (averageVals[g]);
-				if(beatPersonality[g] <= zeroMag) {
+				beatPersonality[g] = Global.audioModifiers[g] * values[index][g] / (averageVals[g]);
+				if(beatPersonality[g] <= zeroMag * Global.audioModifiers[g]) {
 					beatPersonality[g] = 0d;
-				} else if(beatPersonality[g] > minMag) {
-					beatPersonality[g] = minMag;
+				} else if(beatPersonality[g] > maxMag) {
+					beatPersonality[g] = maxMag;
 				}
 			} else {
 				beatPersonality[g] = 0d;

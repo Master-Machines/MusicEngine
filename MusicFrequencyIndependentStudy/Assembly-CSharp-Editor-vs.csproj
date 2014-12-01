@@ -69,6 +69,12 @@
  <Reference Include="MathNet.Numerics">
  <HintPath>C:/Users/Derek/Documents/GitHub/MusicEngine/MusicFrequencyIndependentStudy/Assets/Plugins/MathNet.Numerics.dll</HintPath>
  </Reference>
+ <Reference Include="NAudio">
+ <HintPath>C:/Users/Derek/Documents/GitHub/MusicEngine/MusicFrequencyIndependentStudy/Assets/Plugins/NAudio.dll</HintPath>
+ </Reference>
+ <Reference Include="NAudio.WindowsMediaFormat">
+ <HintPath>C:/Users/Derek/Documents/GitHub/MusicEngine/MusicFrequencyIndependentStudy/Assets/Plugins/NAudio.WindowsMediaFormat.dll</HintPath>
+ </Reference>
  <Reference Include="System.Threading">
  <HintPath>C:/Users/Derek/Documents/GitHub/MusicEngine/MusicFrequencyIndependentStudy/Assets/Plugins/System.Threading.dll</HintPath>
  </Reference>

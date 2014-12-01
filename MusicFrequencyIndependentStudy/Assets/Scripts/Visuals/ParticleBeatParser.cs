@@ -23,6 +23,7 @@ public class ParticleBeatParser : MonoBehaviour {
 	public GameObject lineTracker;
 	private Vector3 lastBeatPosition;
 	private int triggeredBeats = 0;
+	private Firework latestFirework;
 	// Use this for initialization
 	void Start () {
 		ray = xrayObj.GetComponent<xray>();
@@ -52,13 +53,27 @@ public class ParticleBeatParser : MonoBehaviour {
 		if(reverseX || reverseY) {
 			ReverseDirections(reverseX, reverseY);
 		}
+		Vector3 lastBeatPosition = currentBeatPosition;
 		currentBeatPosition = new Vector3(currentBeatPosition.x + direction.x, currentBeatPosition.y + direction.y, Mathf.Abs(currentBeatPosition.x + direction.x)/ -2f );
-		Instantiate(linearBeats[GetStrongestMagnitudeIndex(magnitudes)], currentBeatPosition, Quaternion.identity);
+		int strongestMag = GetStrongestMagnitudeIndex(magnitudes);
+		GameObject theBeat = (GameObject)Instantiate(linearBeats[strongestMag], currentBeatPosition, Quaternion.identity);
+		latestFirework = theBeat.GetComponentInChildren<Firework>();
+		latestFirework.SetInfo(lastBeatPosition, magnitudes[8], magnitudes[strongestMag]);
+		TweenToPosition[] particleScripts = theBeat.GetComponentsInChildren<TweenToPosition>();
+		
+		float timeModifier = 1f;
+		if(magnitudes[8] < Global.audioClip.frequency * 2) {
+			timeModifier = .75f + (float)magnitudes[8] / (float)Global.audioClip.frequency / 8f;
+		}
+		
+		for(int i = 0; i < particleScripts.Length; i++) {
+			StartCoroutine(particleScripts[i].StartIt(timeModifier));
+		}
 		
 		if (triggeredBeats > 0) {
 			GameObject g = (GameObject)Instantiate(lineTracker, transform.position, Quaternion.identity);
 			LineTracker lt = g.GetComponent<LineTracker>();
-			StartCoroutine(lt.Instantiate(lastBeatPosition, currentBeatPosition, 4f));
+			StartCoroutine(lt.Instantiate(lastBeatPosition, currentBeatPosition, 1f));
 		}
 		triggeredBeats ++;
 		lastBeatPosition = currentBeatPosition;
@@ -66,6 +81,9 @@ public class ParticleBeatParser : MonoBehaviour {
 	}
 	
 	void ReverseDirections(bool x, bool y) {
+		if(x && latestFirework) {
+			latestFirework.DirectionChange();
+		}
 		for(int i = 0; i < directions.Length; i++) {
 			if(x) {
 				directions[i].x *= -1f;		
@@ -81,9 +99,9 @@ public class ParticleBeatParser : MonoBehaviour {
 		int greatestBeatIndex = GetStrongestMagnitudeIndex(magnitudes);
 		Vector2 d = directions[greatestBeatIndex];
 		
-		float total = 2.5f + magnitudes[8] / 2400f;
-		if(total > 25f) {
-			total = 25f;
+		float total = 3f + magnitudes[8] / 2400f;
+		if(total > 22f) {
+			total = 22f;
 		}
 		return new Vector2(d.x * total, d.y * total);
 		
