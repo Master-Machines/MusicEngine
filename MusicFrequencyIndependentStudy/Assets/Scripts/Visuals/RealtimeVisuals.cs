@@ -17,7 +17,7 @@ public class RealtimeVisuals : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		songAverage = Global.songTotalAverage;
-		Debug.Log(songAverage);
+		//Debug.Log(songAverage);
 		oldValues = new float[512];
 		currentValues = new float[512];
 		deltas = new float[512];

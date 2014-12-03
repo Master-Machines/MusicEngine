@@ -37,6 +37,7 @@ public class ParticleBeatParser : MonoBehaviour {
 	}
 	
 	public void CreateLinearBeat(float[] magnitudes) {
+		Debug.Log("triggered");
 		Vector2 direction = new Vector2(0f, 0f);
 		direction = GetDirection(magnitudes);
 		bool reverseX = false;

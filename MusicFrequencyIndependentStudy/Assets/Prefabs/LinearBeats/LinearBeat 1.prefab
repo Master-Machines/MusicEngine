@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useName: 1
-  name: OVRCameraController
+  name: OVRCameraRig
   target: {fileID: 0}
 --- !u!198 &19800000
 ParticleSystem:

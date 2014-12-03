@@ -27,14 +27,14 @@ public class BeatMaster : MonoBehaviour {
 	private Texture2D tex;
 	[HideInInspector]
 	public GUIStyle gui;
+	
+	private bool checkForGameOver = false;
 
 	private Texture2D tex2;
 	[HideInInspector]
 	public GUIStyle gui2;
-	
-	public int minTimeBetweenBeats;
 	// Use this for initialization
-	void Start () {
+	IEnumerator Start () {
 		tex = new Texture2D (1, 1);
 		tex.SetPixel (0, 0, new Color(0f, 0f, 1f, .6f));
 		tex.Apply ();
@@ -44,6 +44,8 @@ public class BeatMaster : MonoBehaviour {
 		tex2.SetPixel (0, 0, new Color(0f, 1f, 0f, .8f));
 		tex2.Apply ();
 		gui2.normal.background = tex2;
+		yield return new WaitForSeconds(5f);
+		checkForGameOver = true;
 	}
 	
 	// Update is called once per frame
@@ -58,6 +60,10 @@ public class BeatMaster : MonoBehaviour {
 			visualDelay -= 5;
 		} else if (Input.GetKeyDown (KeyCode.LeftArrow)) {
 			visualDelay --;	
+		}
+		
+		if(checkForGameOver && !audio.isPlaying) {
+			Application.LoadLevel(0);
 		}
 	}
 	

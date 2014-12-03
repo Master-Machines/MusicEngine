@@ -32,10 +32,10 @@ public class Core : MonoBehaviour {
 		beatMaster.audioFrequency = audioClip.frequency;
 		beatMaster.sampleSize = sampleSizeForFFT;
 		beatMaster.sampleRate = sampleSizeForFFT / audioClip.frequency;
-		Camera.main.transform.position = new Vector3 (2f * numberOfBands, 2.5f * numberOfBands, -2f);
-		Debug.Log (audioClip.samples);
-		Debug.Log (audioClip.channels);
-		Debug.Log (audioClip.frequency);
+		//Camera.main.transform.position = new Vector3 (2f * numberOfBands, 2.5f * numberOfBands, -2f);
+		//Debug.Log (audioClip.samples);
+		//Debug.Log (audioClip.channels);
+		//Debug.Log (audioClip.frequency);
 		DoManyIterations (audioClip.samples/sampleSizeForFFT, sampleSizeForFFT, true);
 		// StartCoroutine (DoManyIterations (100, sampleSizeForFFT, false));
 	}

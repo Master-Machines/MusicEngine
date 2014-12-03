@@ -5,7 +5,7 @@ public class LookAtTarget : MonoBehaviour {
 	public bool useName;
 	public string name;
 	public GameObject target;
-	private int counter = 19;
+	private int counter = 16;
 	// Use this for initialization
 	void Start () {
 		if(useName) {

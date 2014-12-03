@@ -46,33 +46,34 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\OVR\OVRImageEffects\OVRImageEffectBase.cs" />
-     <Compile Include="Assets\OVR\OVRImageEffects\OVRLensCorrection.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRCamera.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRCameraController.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRComponent.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRCrosshair.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRDevice.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRDistortionCamera.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRDistortionMesh.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRGUI.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRGamepadController.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRGridCube.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRMagCalibration.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRMainMenu.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRMessenger.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRPlayerController.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRPresetManager.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRUtils.cs" />
-     <Compile Include="Assets\OVR\Scripts\OVRVisionGuide.cs" />
+     <Compile Include="Assets\OVR\Scripts\OVRCameraRig.cs" />
+     <Compile Include="Assets\OVR\Scripts\OVRCommon.cs" />
+     <Compile Include="Assets\OVR\Scripts\OVRDisplay.cs" />
+     <Compile Include="Assets\OVR\Scripts\OVRManager.cs" />
+     <Compile Include="Assets\OVR\Scripts\OVRPluginEvent.cs" />
+     <Compile Include="Assets\OVR\Scripts\OVRTracker.cs" />
+     <Compile Include="Assets\OVR\Scripts\OvrCapi.cs" />
+     <Compile Include="Assets\OVR\Scripts\Util\OVRCrosshair.cs" />
+     <Compile Include="Assets\OVR\Scripts\Util\OVRGUI.cs" />
+     <Compile Include="Assets\OVR\Scripts\Util\OVRGamepadController.cs" />
+     <Compile Include="Assets\OVR\Scripts\Util\OVRGridCube.cs" />
+     <Compile Include="Assets\OVR\Scripts\Util\OVRMainMenu.cs" />
+     <Compile Include="Assets\OVR\Scripts\Util\OVRPlayerController.cs" />
+     <Compile Include="Assets\OVR\Scripts\Util\OVRUGUI.cs" />
+     <Compile Include="Assets\OVR\Scripts\Util\OVRVisionGuide.cs" />
      <Compile Include="Assets\Scripts\Analysis\Core.cs" />
      <Compile Include="Assets\Scripts\Analysis\FFT.cs" />
      <Compile Include="Assets\Scripts\Analysis\Realtime.cs" />
      <Compile Include="Assets\Scripts\Beat.cs" />
      <Compile Include="Assets\Scripts\BeatMaster.cs" />
      <Compile Include="Assets\Scripts\Browser.cs" />
-     <Compile Include="Assets\Scripts\Menu.cs" />
+     <Compile Include="Assets\Scripts\Menu\Loading.cs" />
+     <Compile Include="Assets\Scripts\Menu\Menu.cs" />
+     <Compile Include="Assets\Scripts\Menu\MenuObject.cs" />
+     <Compile Include="Assets\Scripts\Menu\MenuTracker.cs" />
+     <Compile Include="Assets\Scripts\Menu\MenuXRay.cs" />
      <Compile Include="Assets\Scripts\MusicImport.cs" />
+     <Compile Include="Assets\Scripts\Visuals\Align.cs" />
      <Compile Include="Assets\Scripts\Visuals\AudioModifier.cs" />
      <Compile Include="Assets\Scripts\Visuals\BasicMovement.cs" />
      <Compile Include="Assets\Scripts\Visuals\ChangeParticleBoxSize.cs" />
@@ -92,16 +93,13 @@
      <Compile Include="Assets\Scripts\Visuals\VisualMaster.cs" />
      <Compile Include="Assets\Scripts\Visuals\xray.cs" />
      <None Include="Assets\Plugins\donotdelete.txt" />
-     <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection_Mesh.shader" />
-     <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection_Mesh_CA.shader" />
      <None Include="Assets\Scripts\Visuals\Grid.shader" />
+     <None Include="Assets\Plugins\x86_64\donotdelete.txt" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
-     <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection_Mesh_CA_TW.shader" />
      <None Include="Assets\OVR\Shaders\TextShader3D.shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
-     <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection_CA.shader" />
-     <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection.shader" />
      <None Include="Assets\OVR\Shaders\OVRGUIShader.shader" />
+     <None Include="Assets\Plugins\x86\donotdelete.txt" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/Derek/Documents/GitHub/MusicEngine/MusicFrequencyIndependentStudy/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
