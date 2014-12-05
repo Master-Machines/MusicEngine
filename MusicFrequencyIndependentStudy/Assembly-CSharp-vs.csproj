@@ -72,6 +72,7 @@
      <Compile Include="Assets\Scripts\Menu\MenuObject.cs" />
      <Compile Include="Assets\Scripts\Menu\MenuTracker.cs" />
      <Compile Include="Assets\Scripts\Menu\MenuXRay.cs" />
+     <Compile Include="Assets\Scripts\Menu\PostGame.cs" />
      <Compile Include="Assets\Scripts\MusicImport.cs" />
      <Compile Include="Assets\Scripts\Visuals\Align.cs" />
      <Compile Include="Assets\Scripts\Visuals\AudioModifier.cs" />

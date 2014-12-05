@@ -33,6 +33,11 @@ public class ScoreTracker : MonoBehaviour {
 	}
 	
 	void EndCombo() {
+	
+		if(currentCombo > Global.longestStreak) {
+			Global.longestStreak = currentCombo;
+		}
+	
 		if(currentCombo >= 4) {
 			Destroy(currentComboTextMesh.gameObject);
 			/*

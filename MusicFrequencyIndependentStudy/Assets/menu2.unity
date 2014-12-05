@@ -118,6 +118,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400000, guid: dfc3c4a618870c041a00843c4d65646c, type: 2}
+      propertyPath: audioClips.Array.size
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: dfc3c4a618870c041a00843c4d65646c, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -150,6 +154,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: dfc3c4a618870c041a00843c4d65646c, type: 2}
+      propertyPath: audioClips.Array.data[7]
+      value: 
+      objectReference: {fileID: 8300000, guid: 497f7fb91b86e6c4e9f550a87c6c2279, type: 3}
+    - target: {fileID: 11400000, guid: dfc3c4a618870c041a00843c4d65646c, type: 2}
+      propertyPath: audioClips.Array.data[8]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9e1ca6fb1f3690c4cbd75be579c278b9, type: 3}
+    - target: {fileID: 11400000, guid: dfc3c4a618870c041a00843c4d65646c, type: 2}
+      propertyPath: audioClips.Array.data[9]
+      value: 
+      objectReference: {fileID: 8300000, guid: cb416d20c81a83741a279c4169001a6b, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dfc3c4a618870c041a00843c4d65646c, type: 2}
   m_RootGameObject: {fileID: 1922999627}
@@ -1619,7 +1635,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d2c1e654256f6a244a30a9e6b3cad8f9, type: 3}
   - {fileID: 8300000, guid: 4ad4669e3cf81c343b540335ced11c78, type: 3}
   - {fileID: 8300000, guid: bb6ea69e92b149b47be77b2129ae512a, type: 3}
-  - {fileID: 8300000, guid: 440144080712a464996c36563af835fa, type: 3}
+  - {fileID: 8300000, guid: 497f7fb91b86e6c4e9f550a87c6c2279, type: 3}
+  - {fileID: 8300000, guid: 9e1ca6fb1f3690c4cbd75be579c278b9, type: 3}
+  - {fileID: 8300000, guid: cb416d20c81a83741a279c4169001a6b, type: 3}
   menuObject: {fileID: 100002, guid: 538caca2d83f8864886269b0f04a83a7, type: 2}
   nextObject: {fileID: 100002, guid: fd68fd52c0ba5bb4397278900d19174c, type: 2}
 --- !u!4 &1922999629

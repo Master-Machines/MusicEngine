@@ -28,12 +28,14 @@ public class Firework : MonoBehaviour {
 		yield return new WaitForSeconds(timeToExplode);
 		finished = true;
 		gameObject.layer = 2;
+		Global.totalBeats ++;
 		if(hasBeenHit > 0f) {
 			/*
 			int numPartles = 2;
 			for(int i = 0; i < numPartles; i++) {
 				explosionParticles[i].particleSystem.Play();
 			}*/
+			Global.beatsHit ++;
 			GameObject dasExplosion = (GameObject)Instantiate(successResidualParticles, transform.position, Quaternion.identity);
 			dasExplosion.transform.LookAt(explosionTarget);
 			float lifespan = timeFromLastBeat/44100f + .15f;

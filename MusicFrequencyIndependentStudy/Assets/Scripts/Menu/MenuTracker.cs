@@ -16,6 +16,13 @@ public class MenuTracker : MonoBehaviour {
 	void Start () {
 		SetupSongLabels();
 		SetAudioMods(0);
+		ResetGlobalValues();
+	}
+	
+	void ResetGlobalValues() {
+		Global.beatsHit = 0;
+		Global.totalBeats = 0;
+		Global.longestStreak = 0;
 	}
 	
 	void SetupSongLabels() {

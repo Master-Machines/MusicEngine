@@ -33,6 +33,8 @@ public class BeatMaster : MonoBehaviour {
 	private Texture2D tex2;
 	[HideInInspector]
 	public GUIStyle gui2;
+	
+	private bool loweringVolume = false;
 	// Use this for initialization
 	IEnumerator Start () {
 		tex = new Texture2D (1, 1);
@@ -46,10 +48,17 @@ public class BeatMaster : MonoBehaviour {
 		gui2.normal.background = tex2;
 		yield return new WaitForSeconds(5f);
 		checkForGameOver = true;
+		yield return new WaitForSeconds(80f);
+		loweringVolume = true;
+		yield return new WaitForSeconds(4f);
+		Application.LoadLevel(3);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(loweringVolume) {
+			audio.volume *= .978f;
+		}
 		CheckForBeats ();
 		//currentPowerIndex = audio.timeSamples / powerTimeIncrement;
 		if (Input.GetKeyDown (KeyCode.UpArrow)) {
@@ -63,7 +72,7 @@ public class BeatMaster : MonoBehaviour {
 		}
 		
 		if(checkForGameOver && !audio.isPlaying) {
-			Application.LoadLevel(0);
+			Application.LoadLevel(3);
 		}
 	}
 	
