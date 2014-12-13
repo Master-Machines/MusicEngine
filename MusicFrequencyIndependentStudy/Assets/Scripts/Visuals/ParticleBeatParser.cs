@@ -24,10 +24,15 @@ public class ParticleBeatParser : MonoBehaviour {
 	private Vector3 lastBeatPosition;
 	private int triggeredBeats = 0;
 	private Firework latestFirework;
+	private float xAngle;
+	public Vector2 xLimits;
+	private float radius = 60f;
+	private RealtimeVisuals realtime;
 	// Use this for initialization
 	void Start () {
 		ray = xrayObj.GetComponent<xray>();
 		ray2 = xrayObj2.GetComponent<xray>();
+		realtime = gameObject.GetComponent<RealtimeVisuals>();
 		currentBeatPosition = new Vector3(centerX, centerY, 0f);
 	}
 	
@@ -37,29 +42,44 @@ public class ParticleBeatParser : MonoBehaviour {
 	}
 	
 	public void CreateLinearBeat(float[] magnitudes) {
-		Debug.Log("triggered");
 		Vector2 direction = new Vector2(0f, 0f);
 		direction = GetDirection(magnitudes);
 		bool reverseX = false;
+		bool reverseXLeft = false;
+		bool reverseXRight = false;
+		
 		bool reverseY = false;
-		if(currentBeatPosition.x + direction.x  < centerX - rangeX || currentBeatPosition.x + direction.x > centerX + rangeX) {
-			direction.x *= -1f;
+		if(xAngle < xLimits.x ) {
+			directions[0].x = 1f;
 			reverseX = true;
+			reverseXLeft = true;
+		} else if(xAngle > xLimits.y) {
+			directions[0].x = -1;
+			reverseX = true;
+			reverseXRight = true;
 		}
 		if(currentBeatPosition.y + direction.y < centerY - rangeY || currentBeatPosition.y + direction.y > centerY + rangeY) {
 			direction.y *= -1f;
 			reverseY = true;
 		}
 		
-		if(reverseX || reverseY) {
+		if(reverseY) {
 			ReverseDirections(reverseX, reverseY);
 		}
 		Vector3 lastBeatPosition = currentBeatPosition;
-		currentBeatPosition = new Vector3(currentBeatPosition.x + direction.x, currentBeatPosition.y + direction.y, Mathf.Abs(currentBeatPosition.x + direction.x)/ -2f );
+		Vector2 newBeats = GetXandZPositionFromAngleAndRadius(xAngle, radius);
+		currentBeatPosition = new Vector3(transform.position.x + newBeats.x, currentBeatPosition.y + direction.y, transform.position.z + newBeats.y );
 		int strongestMag = GetStrongestMagnitudeIndex(magnitudes);
 		GameObject theBeat = (GameObject)Instantiate(linearBeats[strongestMag], currentBeatPosition, Quaternion.identity);
 		latestFirework = theBeat.GetComponentInChildren<Firework>();
-		latestFirework.SetInfo(lastBeatPosition, magnitudes[8], magnitudes[strongestMag]);
+		
+		Vector3 adjustedLastBeatPosition = lastBeatPosition;
+		if(reverseXLeft) {
+			adjustedLastBeatPosition = new Vector3(-1000f, currentBeatPosition.y, 0f);
+		} else if(reverseXRight) {
+			adjustedLastBeatPosition = new Vector3(1000f, currentBeatPosition.y, 0f);
+		}
+		latestFirework.SetInfo(adjustedLastBeatPosition, magnitudes[9], magnitudes[strongestMag], triggeredBeats);
 		TweenToPosition[] particleScripts = theBeat.GetComponentsInChildren<TweenToPosition>();
 		
 		float timeModifier = 1f;
@@ -72,13 +92,19 @@ public class ParticleBeatParser : MonoBehaviour {
 		}
 		
 		if (triggeredBeats > 0) {
-			GameObject g = (GameObject)Instantiate(lineTracker, transform.position, Quaternion.identity);
-			LineTracker lt = g.GetComponent<LineTracker>();
-			StartCoroutine(lt.Instantiate(lastBeatPosition, currentBeatPosition, 1f));
+			//GameObject g = (GameObject)Instantiate(lineTracker, transform.position, Quaternion.identity);
+			//LineTracker lt = g.GetComponent<LineTracker>();
+			//StartCoroutine(lt.Instantiate(lastBeatPosition, currentBeatPosition, 1.2f));
 		}
 		triggeredBeats ++;
 		lastBeatPosition = currentBeatPosition;
+		StartCoroutine(TriggerRealtime());
 		//StartCoroutine(TriggerCrosshair(true));
+	}
+	
+	IEnumerator TriggerRealtime() {
+		yield return new WaitForSeconds(primaryDelay / 1000f);
+		realtime.ChangeColors();
 	}
 	
 	void ReverseDirections(bool x, bool y) {
@@ -93,7 +119,6 @@ public class ParticleBeatParser : MonoBehaviour {
 				directions[i].y *= -1f;
 			}
 		}
-		Debug.Log("Direction reversed");
 	}
 	
 	Vector2 GetDirection(float[] magnitudes) {
@@ -104,8 +129,22 @@ public class ParticleBeatParser : MonoBehaviour {
 		if(total > 22f) {
 			total = 22f;
 		}
+		xAngle += total / 1f * directions[0].x;
+		float maxDistance = magnitudes[9] / Global.audioClip.frequency * 10f;
+		if(maxDistance > 40f) {
+			maxDistance = 40f;
+		} 
+		radius = 25f + maxDistance;
 		return new Vector2(d.x * total, d.y * total);
 		
+	}
+	
+	Vector2 GetXandZPositionFromAngleAndRadius(float angle, float r) {
+		angle = angle;
+		Vector2 v = new Vector2();
+		v.y = r * Mathf.Cos(Mathf.Deg2Rad * angle);
+		v.x = r * Mathf.Sin(Mathf.Deg2Rad * angle);
+		return v;
 	}
 	
 	int GetStrongestMagnitudeIndex(float[] magnitudes) {

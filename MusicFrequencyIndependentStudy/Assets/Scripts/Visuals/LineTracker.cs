@@ -8,8 +8,8 @@ public class LineTracker : MonoBehaviour {
 	private Vector3 startingPosition;
 	private Vector3 endingPosition;
 	private bool ready = false;
-	private int counter = 3;
-	private int maxCounter = 7;
+	private int counter = 0;
+	private int maxCounter = 5;
 
 	public IEnumerator Instantiate(Vector3 sPos, Vector3 ePos, float lifeSpan) {
 		startingPosition = sPos;

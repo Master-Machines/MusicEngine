@@ -243,13 +243,13 @@ ParticleSystem:
         m_NumAlphaKeys: 2
       minColor:
         serializedVersion: 2
-        rgba: 3120496870
+        rgba: 3372155110
       maxColor:
         serializedVersion: 2
-        rgba: 3019833395
-      minMaxState: 2
+        rgba: 4294967295
+      minMaxState: 0
     startSize:
-      scalar: 1.10000002
+      scalar: 1.20000005
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -456,25 +456,25 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 603979775
+          rgba: 4294967295
         key1:
           serializedVersion: 2
           rgba: 2701131775
         key2:
           serializedVersion: 2
-          rgba: 603979775
+          rgba: 4294967295
         key3:
           serializedVersion: 2
           rgba: 2684354560
         key4:
           serializedVersion: 2
-          rgba: 587202560
+          rgba: 4278190080
         key5:
           serializedVersion: 2
           rgba: 2684354560
         key6:
           serializedVersion: 2
-          rgba: 0
+          rgba: 4278190080
         key7:
           serializedVersion: 2
           rgba: 0
@@ -491,7 +491,7 @@ ParticleSystem:
         atime2: 21588
         atime3: 33924
         atime4: 47224
-        atime5: 55705
+        atime5: 58211
         atime6: 65535
         atime7: 65535
         m_NumColorKeys: 2
@@ -1179,7 +1179,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     startSpeed:
-      scalar: 0
+      scalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1303,10 +1303,10 @@ ParticleSystem:
         rgba: 3120496870
       maxColor:
         serializedVersion: 2
-        rgba: 4294901864
+        rgba: 4294967295
       minMaxState: 0
     startSize:
-      scalar: 1
+      scalar: 3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1386,12 +1386,12 @@ ParticleSystem:
     boxZ: 1
     placementMode: 0
     m_Mesh: {fileID: 0}
-    randomDirection: 0
+    randomDirection: 1
   EmissionModule:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 50
+      scalar: 75
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2193,7 +2193,7 @@ ParticleSystemRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c78b114ae617a4914a6f9b9e0f796a0b, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -2225,7 +2225,7 @@ ParticleSystemRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f60723ea36fc34476899abc83a5309c9, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

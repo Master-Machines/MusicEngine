@@ -19,6 +19,7 @@ public class Core : MonoBehaviour {
 	public double[][] deltas;
 	private float[] averages;
 	private int[] beatCount;
+	public GameObject[] objectsToSendPlayMessage;
 	// Use this for initialization
 	void Start () {
 		if(Global.audioClip != null) {
@@ -68,6 +69,9 @@ public class Core : MonoBehaviour {
 		beatMaster.SetBeatDeltas();
 		beatMaster.gameObject.audio.clip = audioClip;
 		beatMaster.gameObject.audio.Play ();
+		for(int i  = 0; i < objectsToSendPlayMessage.Length; i++) {
+			objectsToSendPlayMessage[i].SendMessage("MusicStarting");
+		}
 	}
 
 	void DoOneIteration(int numberOfSamples, int offset) {
@@ -205,8 +209,8 @@ public class Core : MonoBehaviour {
 	void SingleBandBeatDetection(int index, double[][] values) {
 		int range = 6;
 		double zeroMag = 1d;
-		double minMag = 21f;
-		double maxMag = 60f;
+		double minMag = 29f;
+		double maxMag = 120f;
 		if(index < range) {
 			range = index;
 		}

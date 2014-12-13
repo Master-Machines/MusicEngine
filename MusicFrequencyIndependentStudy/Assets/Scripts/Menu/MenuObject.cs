@@ -34,7 +34,7 @@ public class MenuObject : MonoBehaviour {
 	
 	public void SetTextAndValue(string text, int v) {
 		textObj.GetComponent<TextMesh>().text = text;
-		textObj.GetComponent<TextMesh>().fontSize = 40 + (int)((1f - (float)text.Length/44f) * 40f);
+		textObj.GetComponent<TextMesh>().fontSize = 50 + (int)((1f - (float)text.Length/44f) * 30f);
 		value = v;
 	}
 	

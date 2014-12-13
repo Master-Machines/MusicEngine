@@ -48,7 +48,7 @@ public class BeatMaster : MonoBehaviour {
 		gui2.normal.background = tex2;
 		yield return new WaitForSeconds(5f);
 		checkForGameOver = true;
-		yield return new WaitForSeconds(80f);
+		yield return new WaitForSeconds(160f);
 		loweringVolume = true;
 		yield return new WaitForSeconds(4f);
 		Application.LoadLevel(3);
@@ -94,8 +94,22 @@ public class BeatMaster : MonoBehaviour {
 			if(!beatTriggered[i]) {
 				beatMagnitudes[i][8] = beatTime[i] - latestActiveTime;
 				latestActiveTime = beatTime[i];
+				beatMagnitudes[i][9] = GetTimeToNextBeat(i);
 			}
 		}
+	}
+	
+	float GetTimeToNextBeat(int beatIndex) {
+		int counter = 1;
+		while(counter < 30) {
+			if(beatIndex + counter < beatTriggered.Count) {
+				if(!beatTriggered[beatIndex + counter]) {
+					return beatTime[beatIndex + counter] - beatTime[beatIndex];
+				}
+			}
+			counter ++;
+		}
+		return 44100f;
 	}
 
 	void SetBeatDelays() {
@@ -133,7 +147,7 @@ public class BeatMaster : MonoBehaviour {
 	public void CreateBeat(int time, double[] m) {
 		beatTime.Add (time);
 		beatTriggered.Add (false);
-		beatMagnitudes.Add(new float[9]{ (float)m[0], (float)m[1], (float)m[2], (float)m[3], (float)m[4], (float)m[5], (float)m[6], (float)m[7], 0f});
+		beatMagnitudes.Add(new float[10]{ (float)m[0], (float)m[1], (float)m[2], (float)m[3], (float)m[4], (float)m[5], (float)m[6], (float)m[7], 0f, 0f});
 		
 		totalBeats ++;
 	}

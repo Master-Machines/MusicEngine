@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   - 82: {fileID: 8200000}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: Menu Tracker
   m_TagString: Untagged
@@ -110,8 +111,25 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9e1ca6fb1f3690c4cbd75be579c278b9, type: 3}
   - {fileID: 8300000, guid: ba78998b368e5b64cb77f31033ad882c, type: 3}
   - {fileID: 8300000, guid: cb416d20c81a83741a279c4169001a6b, type: 3}
+  - {fileID: 8300000, guid: eca387a131788cc43ace20ba303101a7, type: 3}
   menuObject: {fileID: 100002, guid: 538caca2d83f8864886269b0f04a83a7, type: 2}
   nextObject: {fileID: 100002, guid: fd68fd52c0ba5bb4397278900d19174c, type: 2}
+  menuControlsSmall: {fileID: 100002, guid: fd2a703553e60704f83be3d79989b2b9, type: 2}
+  menuControlsSmall2: {fileID: 100002, guid: 8f3ad7e5470fe18428c1990ba83bef5f, type: 2}
+  menuObjectDirectory: {fileID: 100002, guid: b72b59effd5b7d342a374f5d48496fc5, type: 2}
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9756f7f5845ce84cb1fa57b2e951696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubies: []
+  source: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

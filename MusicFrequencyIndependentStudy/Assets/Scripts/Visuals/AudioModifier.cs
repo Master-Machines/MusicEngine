@@ -30,6 +30,6 @@ public class AudioModifier : MonoBehaviour {
 		if(regenCounter == -1) {
 			lowPass.cutoffFrequency = 8000;
 		}
-		regenCounter = 100;
+		regenCounter = 60;
 	}
 }
